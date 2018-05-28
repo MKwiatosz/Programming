@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+
+	<meta charset="UTF-8">
+	<meta name="description" content="strona cs:go poswiecona klubowi">
+	<meta name="keywords" content="cs:go,awp,m4">
+	<meta name="autor" content="Michał Kwiatosz">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	<link rel="stylesheet" href="css/main.css">
+
+	<title> CS:GO o nazwie Non omnis moriar</title>
+
+</head>
+
+<body>
+	
+	<div class="container">
+		
+		<div class="logo">
+			<img src="img/cs1.jpg" alt="klan non omnis moriar">
+			<p><strong> Uwaga! Trwa rekrutacja! Wymagana ranga: silver. </strong></p>
+		</div>
+
+		<div class="nav">
+			
+			<ul>
+				<a href="index.html" target="_top">
+					<li>Strona Główna</li>
+				</a>
+
+				<a href="register.html" target="_top">
+					<li>Dołącz do nas</li>
+				</a>	
+
+				<a href="http://bit.ly/streamy-csgo" target="_blank">
+					<li>Streamy z CS:GO</li>
+				</a>
+			</ul>
+
+		</div>
+
+		<div class="content">
+			
+			<form action="new.php" method="post">
+				<p>
+				<label for="pole"> Nick:</label>
+				<input type="text" id="pole" placeholder="istniejący nick z CS">
+				</p>
+
+				<p>
+				<label for="password">Hasło:</label>
+				<input type="password" id="password">
+				<label for="password1">Powtórz hasło:</label>
+				<input type="password" id="password1">
+				</p>
+
+				<p>
+				<label for="data_urodzenia">Podaj datę urodzenia:</label>
+				<input type="date" id="data_urodzenia">
+				</p>
+
+				<p>
+				<label><input type="radio" name="plec" id="m" checked="checked">Mężczyzna</label>
+				<label><input type="radio" name="plec" id="k">Kobieta</label>
+				</p>
+
+				<p>
+				<input type="checkbox" id="reguamin" checked="checked">
+				<label for="regulamin">Akceptuję regulamin</label>
+				</p>
+
+				<p>
+				<input type="checkbox" id="newsletter">
+				<label for="newsletter">Wyrażam zgodę na otrzymywanie newslettera</label>
+				</p>
+
+				<p>
+				<label for="ulubiona_bron">Jak jest Twoja ulubiona broń:</label>
+				<select id="ulubiona_bron">
+					<option value="1">Five-SeveN
+</option>
+					<option value="2">Desert Eagle
+</option>
+					<option value="3">PP-Bizon</option>
+					<option value="4">AWP
+</option>
+					<option value="5">MP9</option>
+					<option value="6">AK-47</option>
+				</select>
+				</p>
+
+				<p>
+				<label for="ulubione_mapy">Jakie są Twoje ulubione mapy:</label>
+				<select  id="ulubione_mapy" multiple>
+					<option value="1">Dust II</option>
+					<option value="2" selected>Mirage</option>
+					<option value="3">Cache
+</option>
+					<option value="4">Inferno
+</option>
+					<option value="5">Nuke</option>
+					<option value="6">Train</option>
+				</select>
+				</p>
+
+				<p>
+				<label for="o_sobie">Powiedz kilka słów o sobie</label>
+				<textarea name="comment" id="o_sobie" cols="30" rows="10"></textarea>	
+				</p>
+
+				<p>
+				<input type="submit" value="Kliknij">
+				</p>
+			</form>
+
+		</div>
+
+		<div class="tab">
+			
+		<table>
+
+						<caption align="top">
+						 <b>Aktualni gracze Non Omnis Moriar</b></caption>
+
+			<thead>
+				<tr>
+					<td>Nick</td><td>Płeć</td><td>Ulubiona broń</td>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr style="color: red;">
+					<td>Sn1p3RR</td>	<td>m</td>	<td>AWP</td>
+				</tr>
+				<tr style="color: #00E700;">
+					<td>Gh0st256</td>	<td>k</td>	<td>PP-Bizon</td>
+				</tr>
+				<tr>
+					<td>K4w411</td>		<td>k</td>	<td>MP9</td>
+				</tr>
+				<tr>
+					<td>S0l1d$nake</td>	<td>m</td>	<td>Desert Eagle</td>
+				</tr>
+			</tbody>
+						 	
+						<caption align="bottom">
+						<small>Legenda: <span class="cz">szef klanu</span>,<span class="ziel">sekretarz drużyny</small></span></caption>
+						
+
+		</table>
+
+		</div>
+
+		<div class="footer">
+			
+			<blockquote cite="https://pl.wikiquote.org/wiki/Douglas_MacArthur">
+			<p><em>Na wojnie się wygrywa albo przegrywa, żyje albo umiera – a decyduje się to w mgnieniu oka.</em></p>
+			<footer>
+				- <a href="https://pl.wikiquote.org/wiki/Douglas_MacArthur" target="_blank"> Douglas MacArthur</a>
+			</footer>
+			</blockquote>
+
+
+		</div>
+
+	</div>
+	
+
+</body>
+
+</html>

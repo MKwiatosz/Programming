@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<!-- Więcej o metodzie drawImage: -->
+<!-- https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Canvas_tutorial/Using_images -->
+<html lang="pl">
+	<head>
+		<meta charset="utf-8">
+		<title>Wklejanie obrazków</title>
+		<style>
+			body{
+				margin:0;
+				padding: 0;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<script>
+			// To już znasz. Nowa canvas dodana do DOM.
+			var my_canvas = document.createElement('canvas');
+			my_canvas.width = window.innerWidth;
+			my_canvas.height = window.innerHeight;
+			document.body.appendChild(my_canvas);
+			var ctx = my_canvas.getContext('2d');
+			//
+			// Zanim zaczniemy wklejać obrazek w Canvas musimy go załadować
+			// Tworzymy nową instancję obiektu typu Image (definicja jest wbudowana w JavaScript)
+			var spam_img = new Image();
+			// Po załadowaniu obrazka odpali się funkcja przypisana do metody onload instancji obiektu typu Image
+			spam_img.onload = drawSomeImage;
+			// src to właściwość przechowująca adres pliku z obrazkiem (tak jak tag HTML <img>)
+			// Przypisanie wartości to właściwości src rozpocznie ładowanie obrazka.
+			spam_img.src = 'spam.jpg';
+
+			// Ta funkcja zostanie odpalona po załadowaniu obrazka.
+			function drawSomeImage(ev){
+				// Obrazek można wkleić za pomocą metody contekstu 2D „drawImage”
+				// Podstawowa wersja wymaga podania źródła i pozycji x i y.
+				// Pro tip: Do canvas można wkleić zawartość innej canvas, bo canvas też jest bitmapą
+				ctx.drawImage(spam_img, 0,0);
+				//
+				// Można również podać dwa kolejne parametry: szerokość i wysokość.
+				// Dzięki temu można skalować wklejany obrazek
+				// Można powiększać:
+				ctx.drawImage(spam_img, 0, 100, 2800, 2000);
+				// Lub zmniejszać
+				ctx.drawImage(spam_img, 0,100, 350, 250);
+				// Zauważ, że powiększony obrazek jest rozmyty. Jeśli chcesz zachować ostrość pikseli musisz wyłączyć wygładzanie skalowania. Każda przeglądarka ma swój prefiks, więc rtzeba podać wszystkie wersje.
+				ctx.imageSmoothingEnabled = false;
+				ctx.mozImageSmoothingEnabled = false;
+				ctx.oImageSmoothingEnabled = false;
+				ctx.webkitImageSmoothingEnabled = false;
+				// Dla porównania wklejam obok powiększenie bez rozmycia.
+				ctx.drawImage(spam_img, 600, 100, 2800, 2000);
+				//
+				// drawImage w pełnej wersji przyjmuje aż 9 parametrów. Dzięki temu możemy wyciąć tylko fragment obrazka i wkleić go zmeniając jego skalę
+				// Schemat wygląda tak:
+				// drawImage przyjmuje 9 parametrów:
+				// 1. obrazek z którego ma coś zostać przeniesione do canvas
+				// 2. pozycja x prostokąta, który będzie wycinał fragment źródłowego obrazka
+				// 3. pozycja y prostokąta, który będzie wycinał fragment źródłowego obrazka
+				// 4. szerokość prostokąta, który będzie wycinał fragment źródłowego obrazka
+				// 5. wysokość prostokąta, który będzie wycinał fragment źródłowego obrazka
+				// 6. pozycja x gdzie w canvas ma zostać wklejony obrazek
+				// 7. pozycja y gdzie w canvas ma zostać wklejony obrazek
+				// 8. szerokość wklejanego obrazka
+				// 9. wysokość wklejanego obrazka
+				// Dwa ostatnie parametry umożliwiają skalowanie
+				
+				// Przykład:
+				ctx.drawImage(spam_img, 240, 125, 130, 100, 700, 0, 260, 200);
+
+
+
+			}
+
+
+
+		</script>
+	</body>
+</html>

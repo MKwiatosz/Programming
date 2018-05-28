@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<!-- /////////////////////////////////////////////////////////////////////////////// -->
+<!-- Dodatkowe informacje o rysowaniu kształtów w canvas tutaj: -->
+<!-- https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Canvas_tutorial/Drawing_shapes -->
+<!-- /////////////////////////////////////////////////////////////////////////////// -->
+
+<html lang="pl">
+	<head>
+		<meta charset="utf-8">
+		<title>Wspaniała wizualizacja</title>
+		<style>
+			body{
+				margin:0;
+				padding: 0;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<script>
+			// 
+			var my_canvas = document.createElement('canvas');
+			//ustawiamy szerokość i wysokość canvas
+			my_canvas.width = 500;
+			my_canvas.height = 500;
+			// dodajemy canvas do elementu „body”
+			document.body.appendChild(my_canvas);
+			// przypisujemy do zmiennej o nazwie „ctx” context 2D elementu canvas
+			var ctx = my_canvas.getContext('2d');
+			// rysujemy prostokąt 
+			ctx.fillRect(30,30,100,100);
+			// 
+			// pisz tutaj
+
+
+			
+		</script>
+	</body>
+</html>

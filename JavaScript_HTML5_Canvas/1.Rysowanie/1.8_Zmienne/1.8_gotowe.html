@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<!-- /////////////////////////////////////////////////////////////////////////////// -->
+<!-- Dodatkowe informacje o zmiennych tutaj: -->
+<!-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Values,_variables,_and_literals -->
+<!-- /////////////////////////////////////////////////////////////////////////////// -->
+
+<html lang="pl">
+	<head>
+		<meta charset="utf-8">
+		<title>Wspaniała wizualizacja</title>
+		<style>
+			body{
+				margin:0;
+				padding: 0;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<script>
+			// słowo kluczowe var a po nim nazwa zmiennej tworzy zmienną
+			var nowaZmienna;
+			// Zmienne mogą mieć nazwę składającą się z znaków „$”, „_” lub dowolnych innych znaków Unicode z kategorii „Uppercase letter (Lu)”, „Lowercase letter (Ll)”, „Titlecase letter (Lt)”, „Modifier letter (Lm)”, „Other letter (Lo)”.
+			// poprawne nazwy zmiennych:
+			var _my_name;
+			var żóŁcicA;
+			var nowa_zmienna45;
+			// 
+			// 
+			// wartości
+			// 
+			// String = łańcuch znaków
+			// 
+			// Znaki są połączone pojedynczym lub podwójnym cudzysłowem
+			var name = 'Daniel';
+			var name2 = "Piotr";
+			// pojedynczy cudzysłów może być w podwójnych i na odwrót
+			var name3 = "ten znak: ' to pojedynczy cudzysłów";
+			// 
+			// dodawanie łańcuchów znaków
+			console.log(name);
+			console.log(name2, name3);
+			var strings = 'test'+'test2';
+			console.log(strings);
+			strings = strings+' '+name3;
+			console.log(strings);
+			name+=' '+name2;
+			console.log(name)
+			// 
+			// 
+			// Numbers = liczby
+			var num1 = 12;
+			var num2 = 40.6;
+			var num3 = num1+num2;
+			var num4 = 20*num3;
+			console.log(num4)
+			var str = '40'+20;
+			console.log(str)
+			var num5 = '40'-20;
+			console.log(num5);
+			// zamienia łańcuch znaków na liczbę całkowitą (integer)
+			var num6 = parseInt(str);
+			console.log(num6);
+			var float1 = 123.56;
+			var str2 = '450.45';
+			console.log(float1)
+			console.log(str2);
+			// zamienia ciąg znaków na liczbę rzeczywistą
+			var float2 = parseFloat(str2);
+			console.log(float2);
+			//
+			// 
+			// Do jendej zmiennej można przypisać różne typy wartości
+			num1 = "to jest jakiś String";
+			console.log(num1);
+			num1 = 176.56;
+			console.log(num1);
+
+		</script>
+	</body>
+</html>

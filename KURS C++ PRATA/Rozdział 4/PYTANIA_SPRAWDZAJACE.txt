@@ -1,0 +1,94 @@
+1) 
+
+	a) char aktorzy [30]; 			+			       
+	
+	b) short betsie [100]; 			+	
+
+	c) float chuck [13];			+	
+
+	d) long double dipsea [64]; 		+	
+
+2) 
+
+	a) array<char,30> aktorzy;		+
+	
+	b) array<short,100> betsie;		+
+
+	c) array<float,13> chuck;		+
+
+	d) array<long double, 64> dipsea; 	+
+
+3) 
+	int liczby [5] = {1,3,5,7,9};		+
+
+4) 
+	int even = liczby[0] + liczby[4];	+
+
+5)
+	 float ideas[];				+
+	 float wartosc = ideas[1]; 
+
+6)
+	 char MAC[] = "cheeseburger";		+
+
+7)
+	 string Nazwa[] = "Waldrof Salad";	+	string lunch = "Waldrof Salad";
+
+8)
+	 struct ryba 
+	{
+
+	char rodzaj[20];
+	int waga_w_gramach;			+	( nie bylo [20] i zmienilem double na float )
+	float dlugosc_w_cm;
+
+	}
+
+9) 
+	ryba = {"sum",500,120.5}; 		-	( bez int ryba, nie dodalem " ", 
+
+10)
+	 enum Odpowiedz = { Nie,Tak,Chyba};	+
+	
+11)
+	double ted;
+	double *w_ted = &ted;			+	double +pd =&ted;
+	wartosc_ted = *w_ted;				cout << *pd <<endl;
+
+12)
+	float trackle [9];
+	float *w_trackle = &trackle[0];						float *pf = treackle; / &treackle[0]
+ 	cout <<"Pierwszy: << *w_trackle[0];	-	( nie dodalem [0])  	cout << pf[0] << " " << pf[9] << endl;
+	cout << "/n Drugi: " << *w_trackle[9]; 
+13) 
+
+	cout << "Podaj dowolna liczne calkowita" << endl;			unsigned int liczba;
+	cin  >> liczba;								cout << "Podaj dodatnia liczbe calkowita" << endl;
+										cin >> liczba;
+	int liczby = new [];			-				int *dyn = new int [liczba];	
+										vector<int> dv(size);
+	delete [] liczby; 
+
+14) 
+	NIC					- 				TAK, instrukcja wyswietla adres podanego lancucha 
+
+15)
+	 int ryby = new struckt ryba []; 	-				ryba *plotka = new ryba;
+	 cout << " rodzaj tyby" << ryba[0].rodzaj;				cout << "Podaj gatunek ryby" <<endl;
+										cin >> plotka->rodzaj
+16)
+	 W pierwszym wypisaloby wsystko do 80 znaku,				Instrukcja bedzie odczytywac tylko jedno slowo nie caly wiersz.
+	 w drugim przypadku wszystko 		- 
+										 
+17)
+	 #include <array>;				( array i vector bez ".h",zla deklaracja)
+    	 #include <vector>;
+	 #include <string>; 
+						- 				
+	string vector{10,obiekt1};						vector<string> vstr(string_number);
+	string array{10,obiekt2};						array<string,string_number>;
+
+
+
+
+

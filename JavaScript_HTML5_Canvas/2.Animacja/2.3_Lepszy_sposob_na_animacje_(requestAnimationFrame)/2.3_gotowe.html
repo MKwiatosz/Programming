@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!-- /////////////////////////////////////////////////////////////////////////////// -->
+<!-- Artykuł Paula Irisha o requestAnimationFrame: -->
+<!-- http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/ -->
+<!-- /////////////////////////////////////////////////////////////////////////////// -->
+
+<html lang="pl">
+	<head>
+		<meta charset="utf-8">
+		<title>Lepsza animacja (requestAnimationFrame)</title>
+		<style>
+			body{
+				margin:0;
+				padding: 0;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<script>
+			var my_canvas = document.createElement('canvas');
+			my_canvas.width = 500;
+			my_canvas.height = 500;
+			document.body.appendChild(my_canvas);
+			var ctx = my_canvas.getContext('2d');
+			//
+			var x = my_canvas.width/2; 
+			var y = my_canvas.height/2;
+			var h = 20;
+			var fps = 60;
+
+			// zoptymalizowana i przyjazna baterii Twojego urządzenia metoda
+			//
+			// w zmiennej lastTime będzie zapisany czas ostatniego wywołania funkcji loop
+			var lastTime = 0;			
+			// potrzebne jest pierwsze wywołanie, następne jest w obrębie funkcji loop
+			animationLoop();
+			function animationLoop(time){// time zostaje automatycznie przekazany 
+				// mówimy przeglądarce, żeby przy następnej klatce została wywołana funkcja loop
+				// Przeglądarki będą się starały wywołać funkcję loop 60 razy na sekundę
+				// to zostawia 16 milisekund na jedną klatkę animacji
+				requestAnimationFrame( animationLoop );
+				// jeśli chcesz animację z mniejszą ilością klatek na sekundę musisz porówać, aktualny czas z poprzednim czasem wywołania funkcji loop
+				if(time-lastTime>=1000/fps){
+					// przypisuje zmiennej lastTime aktualny czas, dzięki temu przy następnym wywołaniu funkcji loop będzie można porównać aktualny czas z poprzednim
+					lastTime = time;
+					//
+					// częściowe czyszczenie canvas
+					ctx.fillStyle = 'rgba(255,255,255,0.2)';
+					ctx.fillRect(0,0,my_canvas.width, my_canvas.height);
+					// kolor kwadratu
+					ctx.fillStyle = 'black';
+					//
+					x = x+2;
+					y = y+2;
+					//
+					ctx.fillRect(x-h/2 ,y-h/2, h, h);
+				}
+			}
+		</script>
+	</body>
+</html>

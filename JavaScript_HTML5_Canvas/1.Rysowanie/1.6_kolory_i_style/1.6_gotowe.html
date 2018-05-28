@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+
+<!-- /////////////////////////////////////////////////////////////////////////////// -->
+<!-- Dodatkowe informacje o zmianie kolorów i styli tutaj: -->
+<!-- https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Canvas_tutorial/Applying_styles_and_colors -->
+<!-- /////////////////////////////////////////////////////////////////////////////// -->
+
+<html lang="pl">
+	<head>
+		<meta charset="utf-8">
+		<title>Wspaniała wizualizacja</title>
+		<style>
+			body{
+				margin:0;
+				padding: 0;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<script>
+			// 
+			var my_canvas = document.createElement('canvas');
+			//ustawiamy szerokość i wysokość canvas
+			my_canvas.width = 500;
+			my_canvas.height = 500;
+			// dodajemy canvas do elementu „body”
+			document.body.appendChild(my_canvas);
+			// przypisujemy do zmiennej o nazwie „ctx” context 2D elementu canvas
+			var ctx = my_canvas.getContext('2d');
+			//
+			//
+			//
+			// zmiana koloru wypełnienia i konturu
+			ctx.fillStyle = "#84e8ee";//kolor szesnastkowy
+			ctx.fillRect(10,10,50,50);
+			ctx.fillStyle = "rgb(231,106,141)";// rgb
+			ctx.fillRect(80,10,50,50);
+			ctx.fillStyle = "rgba(255,0,0,0.5)";// rgb + alpha czyli przezroczystość z zakresu 0-1
+			ctx.fillRect(150,10,50,50);
+			ctx.fillStyle = "pink";// nazwy kolorów z CSS
+			ctx.fillRect(220,10,50,50);
+			// analogicznie można zmieniać kolor konturu
+			ctx.strokeStyle = "rgb(95,106,247)";
+			ctx.strokeRect(10,80,50,50);
+			//
+			//
+			// przezroczystość
+			// oprócz kolorów z kanałem alpha można stosować globalną przezroczystość, która zmieni krycie wszystkich elementów, które zostaną narysowane po zmianie przezroczystości
+			ctx.globalAlpha = 0.5;
+			ctx.fillStyle = "black";
+			ctx.fillRect(10,150,50,50);
+			ctx.globalAlpha = 1;
+			ctx.fillStyle = "black";
+			ctx.fillRect(80,150,50,50);
+			//
+			//
+			// style linii, które na pewno doskonale znasz z programów Adobe
+			ctx.strokeStyle = 'black';
+			// szerokość linii (grubość zawsze odkłada się po połowie do środka i na zewnątrz)
+			ctx.lineWidth = 10;
+			ctx.strokeRect(10,220,50,50);
+			// łączenie linii
+			// możliwe ustawienia to: round, bevel i miter
+			// nazwy odpowiadają dokładnie takiemu samemu działaniu Stroke w programach Adobe: zaokrąglenie, ścięcie, i ostry kąt
+			// domyślnie ustawione na miter, czyli tak jak domyślne ustawienie w illustratorze czy InDesignie
+			ctx.lineJoin = 'round';
+			ctx.strokeRect(80,220,50,50);
+			// w przypadku miter można ograniczyć długość „szpikulca” który powstaje przy ciasnych kątach
+			// jeśli odległość wierzchołka powstałego konta przekroczy miterLimit, połączenie zostanie wykreślone z opcją bevel (dokładnie tak jak w programach Adobe)
+			//
+			// nie przekroczony limit
+			ctx.lineJoin = 'miter';
+			ctx.miterLimit = 15;
+			ctx.beginPath()
+			ctx.moveTo(180, 160);
+			ctx.lineTo(190, 260);
+			ctx.lineTo(200, 160);
+			ctx.stroke()
+			// przekroczony limit
+			ctx.miterLimit = 9;
+			ctx.beginPath()
+			ctx.moveTo(230, 160);
+			ctx.lineTo(240, 260);
+			ctx.lineTo(250, 160);
+			ctx.stroke()
+			//
+			//
+		</script>
+	</body>
+</html>

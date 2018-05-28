@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!-- Więcej o Math.random: -->
+<!-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random -->
+
+<html lang="pl">
+	<head>
+		<meta charset="utf-8">
+		<title>Odrobina przypadku</title>
+		<style>
+			body{
+				margin:0;
+				padding: 0;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<script src="js/rAF.js"></script>
+		<script>
+			var my_canvas = document.createElement('canvas');
+			//
+			my_canvas.width = 500;
+			my_canvas.height = 500;
+			//
+			document.body.appendChild(my_canvas);
+			//
+			var ctx = my_canvas.getContext('2d');
+			// 
+			var x = my_canvas.width/2; 
+			var y = my_canvas.height/2;
+			// losujemy wielkość kwadratu
+			var h = rand(15,25);
+			// losujemy przyrost pixeli na klatkę
+			// Nasza funkcja „rand” zwraca wartości całkowite.
+			// My chcemy mieć większą swobodę dlatego losujemy wartości od -1000 do 1000 i wynik dzielimy przez 100.
+			// W efekcie mamy liczbę z zakresu od -10 do 10, ale z dokładnością do dwóch miejsc po przecinku.
+			var speedX = rand(-1000,1000)/100;
+			var speedY = rand(-1000,1000)/100;
+			// Jeśli speedX i speedY równa się zero kwadrat będzie stał w miejscu, tego nie chcemy. Dlatego w takiej wyjątkowej sytuacji ustawiam speedX na 1
+			if(speedX==0 && speedY==0){
+				speedX = 1;
+			}
+			// losowanie koloru; każdy kanał w przestrzeni RGB przyjmuje wartości od 0 do 255
+			// nie chcemy zbyt jasnych kwadratów dlatego losujemy kolory z przedziału 0-240
+			// jeśli nie chcemy szarych kwadratów to każdy kanał powinien mieć inną wartość
+			// czerwony
+			var r = rand(0,240);
+			// zielony
+			var g = rand(0,240);
+			// niebieski
+			var b = rand(0,240);
+			var fps = 60;
+			var lastTime = 0;			
+			//
+			animationLoop();
+			function animationLoop(time){
+				requestAnimationFrame( animationLoop );
+				if(time-lastTime>=1000/fps){
+					lastTime = time;
+					ctx.fillStyle = 'rgba(255,255,255,0.2)';
+					ctx.fillRect(0,0,my_canvas.width, my_canvas.height);
+					// Ustawienie koloru kwadratu na wcześniej wylosowane wartości
+					ctx.fillStyle = 'rgba('+r+','+g+','+b+',1)';
+					// zwiększenie pozycji x i y
+					x = x+speedX;
+					y = y+speedY;
+					//
+					ctx.fillRect(x-h/2 ,y-h/2, h, h);
+				}
+			}
+			// Funkcja losująca liczby całkowite z podanego zakresu
+			// Tu wytłumaczenie dlaczego dodaję 1 do (max-min):
+			// http://stackoverflow.com/questions/1527803/generating-random-numbers-in-javascript-in-a-specific-range
+			// W skrócie:
+			// Użycie Math.round zamiast Math.floor i nie dodanie 1 sprawi, że skrajne wartości (dokładnie min lub max) będą się losowały rzadziej niż pozostałe wartości. 
+			function rand(min,max){
+				return Math.floor(Math.random()*(max-min+1))+min;
+			}
+		</script>
+	</body>
+</html>

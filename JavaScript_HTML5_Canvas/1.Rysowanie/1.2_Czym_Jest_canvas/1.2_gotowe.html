@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!-- DOCTYPE informuje przeglądarkę, że ma czytać tę stronę jako HTML5, zawsze powinien być pierwszym elementem na stronie -->
+
+<!-- /////////////////////////////////////////////////////////////////////////////// -->
+<!-- Dodatkowe informacje o podstawowym użyciu elementu canvas znajdziesz tutaj: -->
+<!-- https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Canvas_tutorial/Basic_usage -->
+<!-- /////////////////////////////////////////////////////////////////////////////// -->
+
+<html lang="pl">
+<!-- w tagu html muszą się pojawić dwa elementy <head> i <body> -->
+<!-- <head> to nagłówek strony; to co tu wrzucamy nie jest bezpośrednio wyświetlane w oknie przeglądarki -->
+	<head>
+		<!-- określa typ kodowania znaków, bez tego tagu wywalą się m.in. polskie znaki -->
+		<meta charset="utf-8">
+		<!-- Tytuł strony, który pojawi się na zakładce okna przeglądarki -->
+		<title>Wspaniała wizualizacja</title>
+		<!-- W obrębie <style> można definiować zasady CSS -->
+		<style>
+			/* zmianiamy tylko wygląd elementu body */
+			body{
+				/*nie chcemy żadnych marginesów*/
+				margin:0;
+				padding: 0;
+				/*nie chcemy scrollbarów*/
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- W obrębie <skrypt> można pisać kod JavaScript -->
+		<script>
+			// Canvas to element HTML, w który można rysować kształty i wklejać obrazki.
+			// Metoda „createElement” obiektu „document” pozwala stowrzyć nowy element.
+			// w tym wypadku powstaje element canvas, który przypisujemy do zmiennej „my_canvas”
+			var my_canvas = document.createElement('canvas');
+			//ustawiamy szerokość i wysokość canvas
+			my_canvas.width = 500;
+			my_canvas.height = 500;
+			// dodajemy canvas do elementu „body”
+			document.body.appendChild(my_canvas);
+			// Jeśli chcemy coś wyświetlić w elemencie canvas musimy skorzystać z obiektu „context 2D" (lub WebGL jeśli chcemy rysować elementy 3D)
+			var ctx = my_canvas.getContext('2d');
+			// rysujemy prostokąt 
+			ctx.fillRect(30,30,100,100);
+		</script>
+	</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pl">
+	<head>
+		<meta charset="utf-8">
+		<title>Bardziej obiektowo</title>
+		<style>
+			body{
+				margin:0;
+				padding: 0;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<script>
+
+			Animal.maleCount = 0;
+
+
+			function Animal(type,gender)
+			{
+				this.type = type;
+				this.gender = gender;
+				if (gender=='male')
+				{
+					Animal.maleCount++;
+				}
+			}
+
+			Animal.prototype.eat = function (food)
+			{
+				return this.type + ' zjadł. '+ food + ' zamienia się w kupę';
+			}
+
+			var kot = new Animal('cat','male');
+			var pies = new Animal('dog','male');
+
+			console.log(kot);
+			console.log(pies);
+			console.log(kot.eat('szynka'));
+
+			function Pet(name,type,gender)
+			{
+				Animal.call(this,type,gender);
+				this.name = name;
+			}
+
+			Pet.prototype = new Animal();
+			Pet.prototype.constructor = Pet;
+
+			var pucek = new Pet('Pucek','dog','male');
+
+			console.log(pucek);
+			console.log(pucek.eat('kielbasa'));
+
+			console.log(Animal.maleCount);
+
+			
+		</script>
+	</body>
+</html>

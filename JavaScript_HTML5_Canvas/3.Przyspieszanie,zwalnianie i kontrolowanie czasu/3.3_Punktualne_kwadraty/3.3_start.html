@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pl">
+	<head>
+		<meta charset="utf-8">
+		<title>Punktualne kwadraty</title>
+		<style>
+			body{
+				margin:0;
+				padding: 0;
+				overflow: hidden;
+				background-color: #6E6E6E;
+			}
+		</style>
+	</head>
+	<body>
+		<script src="js/rAF.js"></script>
+		<script src="js/easing.js"></script>
+		<script>
+			var my_canvas = document.createElement('canvas');
+			my_canvas.width = window.innerWidth;
+			my_canvas.height = window.innerHeight;
+			//
+			document.body.appendChild(my_canvas);
+			//
+			var ctx = my_canvas.getContext('2d');
+			//
+			var wszystkieKwadraty = [];
+
+			// tablica z kwadratam znajdującymi się na ekranie
+			var widoczneKwadraty = [];
+
+			var ease = 'easeInOutBounce';
+
+
+			var fps = 60;
+			// 
+			var lastTime = 0;			
+			animationLoop();
+			function animationLoop(time){
+				requestAnimationFrame( animationLoop );
+				if(time-lastTime>=1000/fps){
+					lastTime = time;
+					// 
+					ctx.fillStyle = 'rgba(255,255,255,0.09)';
+					ctx.clearRect(0,0,my_canvas.width, my_canvas.height);
+					//
+					//
+					// Opróżniamy tablicę z widocznymi kwadratami.
+					// Length tablicy to ilość elementów w tablicy. Jeśli przypiszemy mu 0, to wszystkie elementy zostaną wyrzucone z tablicy.
+					widoczneKwadraty.length = 0;
+					//
+					// W każdej klatce animacji dodajemy piętnaście kwadratów
+					for (var i=0; i<15; i++) {
+							wszystkieKwadraty.push({
+							start_x:my_canvas.width/2,
+							start_y:my_canvas.height/2,// Żródło kwadratów zostaje przesunięte do gory.
+							target_x:rand(0,Math.round(my_canvas.width)),
+							target_y:rand(0,Math.round(my_canvas.height)),
+							t:0,
+							d:2000,
+							h:rand(5,10),// Trochę mniejsze kwadraty będą lepiej wyglądały.
+							speedX:rand(-1000,1000)/100,
+							speedY:rand(-1000,1000)/100,
+							r:rand(100,240),// Ustawiam czerony na maksa dla wszystkich kwadratów.
+							g:rand(0,240),
+							b:rand(100,180)
+						});
+					}
+					// Nie sprawdzam, czy kwadrat będzie stał w miejscu, bo będę zmieniał speedY każdego z kwadratów w czasie trwania animacji.
+					for (var i=0; i<wszystkieKwadraty.length; i++) {
+						var kwadrat = wszystkieKwadraty[i];
+						//
+						ctx.fillStyle = 'rgba('+kwadrat.r+','+kwadrat.g+','+kwadrat.b+',1)';
+				
+						kwadrat.t += 1000/fps;
+
+						kwadrat.x =Easing.get(ease,kwadrat.start_x,kwadrat.target_x,kwadrat.t,kwadrat.d);
+						kwadrat.y =Easing.get(ease,kwadrat.start_y,kwadrat.target_y,kwadrat.t,kwadrat.d);
+						// Stopniowe zwiększanie prędkości w kierunku dolnej krawędzie ekranu da nam efekt grawitacji.
+							// kwadrat.speedY = kwadrat.speedY+0.6;
+						// Stopniowo zmieniamy też kolor kwadratów. Będą się stawały coraz bielsze. Stosując Math.min upewniem się, że wartość pojedynczego kanału nie przekroczy 255.
+							// kwadrat.r = Math.min(255, kwadrat.r+2);
+							// kwadrat.g = Math.min(255, kwadrat.g+2);
+							// kwadrat.b = Math.min(255, kwadrat.b+2);
+						//
+						ctx.fillRect(kwadrat.x-kwadrat.h/2 ,kwadrat.y-kwadrat.h/2, kwadrat.h, kwadrat.h);
+						// Jeśli kwadrat jest widoczny wrzuć go do tablicy z widocznymi kwadratami.
+						// Sprawdzam dwa czynniki. Położenie oraz kolor (całkiem białe kwadraty są również eliminowane)
+						if(kwadrat.t<kwadrat.d)
+						{
+							// widoczne są wrzucane do tablicy
+							widoczneKwadraty.push(kwadrat)
+						}
+					}
+					// Przypisz kopię tablicy „widoczneKwadraty” do „wszystkieKwadraty”. Gdybyśmy nie przypisali kopii tylko oryginalną tablicę, to zmieniając tablicę „widoczneKwadraty” zmienialibyśmy również tablicę „wszystkieKwadraty” bo te dwie zmienne wskazywałyby na tą samą tablicę.
+					wszystkieKwadraty = widoczneKwadraty.concat();
+				}
+			}
+			function rand(min,max){
+				return Math.floor(Math.random()*(max-min+1))+min;
+			}
+		</script>
+	</body>
+</html>

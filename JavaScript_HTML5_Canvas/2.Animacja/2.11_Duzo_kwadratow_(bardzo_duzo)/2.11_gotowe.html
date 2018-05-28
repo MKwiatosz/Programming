@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pl">
+	<head>
+		<meta charset="utf-8">
+		<title>Dużo kwadratów (bardzo dużo)</title>
+		<style>
+			body{
+				margin:0;
+				padding: 0;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<script src="js/rAF.js"></script>
+		<script>
+			var my_canvas = document.createElement('canvas');
+			//
+			my_canvas.width = 500;
+			my_canvas.height = 500;
+			//
+			document.body.appendChild(my_canvas);
+			//
+			var ctx = my_canvas.getContext('2d');
+			//
+			// deklarujemy zmienną, w której będzie przechowywana tablica ze wszystkimi kwadratami
+			var wszystkieKwadraty = [];
+			//
+			var fps = 60;
+			//
+			var lastTime = 0;			
+			//
+			animationLoop();
+			function animationLoop(time){
+				requestAnimationFrame( animationLoop );
+				if(time-lastTime>=1000/fps){
+					lastTime = time;
+					// 
+					ctx.fillStyle = 'rgba(255,255,255,0.2)';
+					ctx.fillRect(0,0,my_canvas.width, my_canvas.height);
+					//
+					//
+					//
+					// W każdej klatce animacji dodajemy jeden kwadrat na koniec tablicy ze wszystkimi kwadratami.
+					// Nowy obiekt nie jest przypisany do zmiennej „kwadrat” jak poprzednio. Jest jedynie wstawiony do tablicy.
+					// 
+					wszystkieKwadraty.push({
+						x:my_canvas.width/2,
+						y:my_canvas.height/2,
+						h:rand(15,25),
+						speedX:rand(-1000,1000)/100,
+						speedY:rand(-1000,1000)/100,
+						r:rand(0,240),
+						g:rand(0,240),
+						b:rand(0,240)
+					});
+					// Sprawdzam, czy nowo dodany kwadrat nie będzie stał w miejscu.
+					if(wszystkieKwadraty[wszystkieKwadraty.length-1].speedX==0 && wszystkieKwadraty[wszystkieKwadraty.length-1].speedY==0){
+						kwadrat.speedX = 1;
+					}
+					// Pętla, która wywoła fragment kodu tyle razy ile jest elementów w tablicy „wszystkieKwadraty”.
+					// „i” za każdym razem będzie większe o jeden.
+					for (var i=0; i<wszystkieKwadraty.length; i++) {
+						// Definiujemy zmienną „kwadrat”, do której zostaje przypisany kolejny obiekt z tablicy „wszystkieKwadraty”
+						var kwadrat = wszystkieKwadraty[i];
+						// Dalej postępujemy tak jak w poprzednich filmikach. Każdy kwadrat musi zostać narysowany na swojej pozycji, w swojej wielkości i kolorze.
+						ctx.fillStyle = 'rgba('+kwadrat.r+','+kwadrat.g+','+kwadrat.b+',1)';
+						kwadrat.x += kwadrat.speedX;
+						kwadrat.y += kwadrat.speedY;
+						// 
+						ctx.fillRect(kwadrat.x-kwadrat.h/2 ,kwadrat.y-kwadrat.h/2, kwadrat.h, kwadrat.h);
+					}
+					
+				}
+			}
+			// 
+			function rand(min,max){
+				return Math.floor(Math.random()*(max-min+1))+min;
+			}
+		</script>
+	</body>
+</html>

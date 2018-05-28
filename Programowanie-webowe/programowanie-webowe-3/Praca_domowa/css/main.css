@@ -1,0 +1,83 @@
+body
+
+{
+	background-image: url(../img/back.png);
+	margin: 0;		
+}
+
+
+.cz
+{
+	color: #F41616;
+}
+
+.ziel
+{
+	color: #00E700;
+}
+
+td,th
+{
+	border: 1px solid black;
+	padding: 5px;
+	border-collapse: collapse;
+}
+
+.container
+{
+	background-color: transparent;
+	width: 1366px;
+	height: 700px;
+	margin: 0;
+}
+
+/*.logo
+{
+	background-image: url(../img/cs1.jpg);
+	width: 800px;	
+	height: 150px;
+	float: left;
+	opacity: 0.8;
+	/*background-size:100% 100%;
+}*/
+
+.nav
+{
+
+/*	background-color: #75FDC8;
+	opacity: 0.5;*/
+	width: 273px;
+	height: 244px;
+	float: left;
+	margin: auto;
+
+}
+
+.content
+{
+	width: 683px;
+	height: 600px;
+	float: left;
+	margin: auto;
+
+
+}
+
+.tab
+{
+background-color: transparent;
+	width: 410px;
+	height: 244px;
+	float: left;
+	margin: auto;
+}
+
+.footer
+{
+	background-color: transparent;
+	width: 1366px;
+	height: 100px;
+	float: left;
+	margin: auto;
+
+}

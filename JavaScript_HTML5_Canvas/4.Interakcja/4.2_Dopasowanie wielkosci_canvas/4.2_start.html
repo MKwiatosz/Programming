@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pl">
+	<head>
+		<meta charset="utf-8">
+		<title>Dopasowanie wielkości canvas (resize)</title>
+		<style>
+			body{
+				margin:0;
+				padding: 0;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<script src="js/rAF.js"></script>
+		<script src="js/easing.js"></script>
+		<script>
+			var my_canvas = document.createElement('canvas');
+
+			layout();
+			window.addEventListener('resize',layout,false);
+
+			document.body.appendChild(my_canvas);
+			var ctx = my_canvas.getContext('2d');
+			var wszystkieKwadraty = [];
+
+			var widoczneKwadraty = [];
+			var fps = 50;
+			//
+			// typ easingu dla wszystkich kwadratów
+			// pozmieniaj warkość i zobacz jakie będą efekty
+			var ease = 'easeOutQuart';
+			//
+			var lastTime = 0;
+			animationLoop();
+			function animationLoop(time){
+				requestAnimationFrame( animationLoop );
+				if(time-lastTime>=1000/fps){
+					lastTime = time;
+					//
+					ctx.clearRect(0,0,my_canvas.width, my_canvas.height);
+					widoczneKwadraty.length = 0;
+					//
+					for (var i=0; i<10; i++) {
+							wszystkieKwadraty.push({
+							start_x:0.5,
+							start_y:0.5,
+							h:rand(5,15),
+							//
+							// target_x:rand(0,Math.round(my_canvas.width)),
+							// target_y:rand(0,Math.round(my_canvas.height)),
+							//
+							// zamiast target x i y podamy promień...
+							target_r:0.4,
+							// ...i kąt początkowy (pod tym kątem będzie przemieszczał się kwadrat; 0 stopni = ruch pionowo w dół)
+							start_a:rand(0,360),
+							t:0,
+							d:2000,
+							start_r:255,
+							start_g:rand(0,240),
+							start_b:rand(0,100)
+						});
+					}
+					for (var i=0; i<wszystkieKwadraty.length; i++) {
+						var kwadrat = wszystkieKwadraty[i];
+						//
+						kwadrat.t+=1000/fps;
+						//
+						// aktualny promień rośnie od 0 do tearget_r
+						kwadrat.r = Easing.get(ease, 0, kwadrat.target_r*my_canvas.height, kwadrat.t, kwadrat.d);
+						// kąt ruchu rośnie od wartości początkowej do wartości początkowej + 180 stopni
+						kwadrat.a = Easing.get(ease, kwadrat.start_a, kwadrat.start_a+180, kwadrat.t, kwadrat.d);
+						//
+						//
+						// Tutaj będzie potrzebna odrobina trygonometrii (dosłownie odrobina, tylko sin i cos).
+						// Wszystko wyjaśniłem dokładnie na filmiku, ale możesz jeszcze doczytać na Wikipedii:
+						// http://pl.wikipedia.org/wiki/Funkcje_trygonometryczne#Definicja_z_element.C3.B3w_tr.C3.B3jk.C4.85ta_prostok.C4.85tnego
+						//
+						// sin(a) = x/r
+						// cos(a) = y/r
+						//
+						// Należy tylko pamiętać, że Math.cos przyjmuje kąt w radianach
+						// radiany = PI / 180 * stopnie
+						//
+						kwadrat.x= Math.sin(Math.PI/180*kwadrat.a)*kwadrat.r+kwadrat.start_x*my_canvas.width;
+						kwadrat.y = Math.cos(Math.PI/180*kwadrat.a)*kwadrat.r+kwadrat.start_y*my_canvas.height;
+						//
+						// dla czytelniejszego efektu zrezygnujemy z rozbielania koloru kwadratów
+						//
+						// kwadrat.r = Easing.getRound(ease, kwadrat.start_r, 255, kwadrat.t, kwadrat.d);
+						// kwadrat.g = Easing.getRound(ease, kwadrat.start_g, 255, kwadrat.t, kwadrat.d);
+						// kwadrat.b = Easing.getRound(ease, kwadrat.start_b, 255, kwadrat.t, kwadrat.d);
+						//
+						// Zostaniemy przy początkowych składowych RGB
+						ctx.fillStyle = 'rgba('+kwadrat.start_r+','+kwadrat.start_g+','+kwadrat.start_b+',1)';
+						//
+						//
+						ctx.fillRect(kwadrat.x-kwadrat.h/2 ,kwadrat.y-kwadrat.h/2, kwadrat.h, kwadrat.h);
+						if(kwadrat.t<kwadrat.d){
+							widoczneKwadraty.push(kwadrat)
+						}
+					}
+					wszystkieKwadraty = widoczneKwadraty.concat();
+				}
+			}
+
+			function layout(event)
+			{
+				my_canvas.width = window.innerWidth;
+				my_canvas.height = window.innerHeight;
+				console.log(my_canvas.width);
+			}
+
+			function rand(min,max)
+			{
+				return Math.floor(Math.random()*(max-min+1))+min;
+			}
+		</script>
+	</body>
+</html>
+
+

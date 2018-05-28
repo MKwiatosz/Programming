@@ -1,0 +1,14 @@
+Folder "Kolokwia_KartkÛwki" zawiera rozwiπzania kartkÛwek/kolokwiÛw/kolokwiÛw poprawkowych z rÛønych lat, ok. 80-90% wszystkich zadaÒ, ktÛre znalaz≥y siÍ na wiki.
+
+Folder "WINNIE_ZADANIA" zawiera praktycznie wszystkie rozwiπzania do zadaÒ z dawnej strony WINNIE.
+
+Folder "Zestaw programÛw do napisania 2011-2012" zawiera ma≥π iloúÊ rozwiπzaÒ do zadaÒ z tego pdfa z wiki.
+
+
+W folderach stara≥em siÍ umieúciÊ od razu pdf'y/doc'i z treúciami zadaÒ. Jak ich nie ma to zapewne treúci bÍdπ wykomentowane u gÛry kodu.
+To jest mÛj dorobek z przeciπgu ca≥ego semestru, a zabawÍ z tym zaczπ≥em dopiero na studiach, wiÍc jakoúÊ, czytelnoúÊ czy nazewnictwo wo≥a czasem o pomstÍ do nieba i wielokrotnie sposÛb pisania siÍ zmienia. Dodatkowo raczej jest bardzo niewiele zrozumia≥ych dla osoby postronnej komentarzy... Jednak w ponad 90% przypadkÛw te zadanka sπ zrobione poprawnie (niekoniecznie najszybciej, chociaø wiÍkszoúÊ przeresta poziom ceramiki jakby to Icon powiedzia≥ :D ).
+
+>>> Od razu zaznaczam, øe NIE POMOG  NIKOMU W ZROZUMIENIU CZEGOå B•Dè WYT£UMACZENIU. <<<
+Wrzucam to jako ma≥π pomoc, ale jeúli ktoú bÍdzie uczy≥ siÍ tych schematÛw zadaÒ (powtarzajπ siÍ, szczegÛlnie na kolosach poprawkowych) na pamiÍÊ, to sam sobie wbija nÛø w plecy :). Zadania trzeba robiÊ samemu, a nie patrzeÊ na rozwiπzanie i pÛüniej kopiowaÊ. Taka ma≥a rada.
+
+A autorem jestem ja, Szymon Sukiennik. Pozdrawiam i øyczÍ powodzenia na WDI. :>

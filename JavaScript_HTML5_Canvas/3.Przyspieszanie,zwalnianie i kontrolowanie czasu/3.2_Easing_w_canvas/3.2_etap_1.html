@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pl">
+	<head>
+		<meta charset="utf-8">
+		<title>Easing | Etap 1</title>
+		<style>
+			body{
+				margin:0;
+				padding: 0;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<script src="js/rAF.js"></script>
+		<script>
+			// canvas na pełną wysokość i szerokość okna
+			var my_canvas = document.createElement('canvas');
+			my_canvas.width = window.innerWidth;
+			my_canvas.height = window.innerHeight;
+			//
+			document.body.appendChild(my_canvas);
+			//
+			var ctx = my_canvas.getContext('2d');
+			//
+			var x = Math.round(my_canvas.width*0.1);// nie zaczynamy od zera tylko od 10% szerokości canvas
+			var y = 100;
+			var h = 100;
+			var forward = true;
+			// 
+			var fps = 50;
+			var lastTime = 0;			
+			animationLoop();
+			//
+			function animationLoop(time){
+				requestAnimationFrame( animationLoop );
+				if(time-lastTime>=1000/fps){
+					lastTime = time;
+					// czyszczenie całej canvas
+					ctx.clearRect(0,0,my_canvas.width, my_canvas.height);
+					// rysowanie
+					ctx.fillRect(x,y,h,h);
+					// kwadrat jedzie do przodu lub do tyłu
+					x = x + (forward ? 15 : -15)
+
+					// czy jedzie do przodu
+					if(forward && x+h>=my_canvas.width*0.9){// jeśli kwadrat jedzie do przodu (do prawej) i jego prawa krawędź przekroczy lub będzie w miejscu 90% szerokości canvas
+						forward = false;
+					}else if(!forward && x<=my_canvas.width*0.1){// jeśli kwadrat przemieszcza się do lewej i jego lewa krawędź przekroczy lub będzie w miejscu 10% szerokości canvas
+						forward = true;
+					}
+
+				}
+			}
+
+		</script>
+	</body>
+</html>

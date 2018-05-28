@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!-- Dla zwiększenia czytelności pozostawiłem jedynie komentarze dotyczące zmian.-->
+<html lang="pl">
+	<head>
+		<meta charset="utf-8">
+		<title>Punktualne kwadraty</title>
+		<style>
+			body{
+				margin:0;
+				padding: 0;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<script src="js/rAF.js"></script>
+		<!-- ======================== -->
+		<!-- Ładujemy easing.js -->
+		<script src="js/easing.js"></script>
+		<!-- ======================== -->
+		<!-- ======================== -->
+		<script>
+			var my_canvas = document.createElement('canvas');
+			my_canvas.width = window.innerWidth;
+			my_canvas.height = window.innerHeight;
+			document.body.appendChild(my_canvas);
+			var ctx = my_canvas.getContext('2d');
+			var wszystkieKwadraty = [];
+
+			var widoczneKwadraty = [];
+			var fps = 50;
+			//
+			// typ easingu dla wszystkich kwadratów
+			// pozmieniaj warkość i zobacz jakie będą efekty
+			var ease = 'easeInOutExpo';
+			// 
+			var lastTime = 0;			
+			animationLoop();
+			function animationLoop(time){
+				requestAnimationFrame( animationLoop );
+				if(time-lastTime>=1000/fps){
+					lastTime = time;
+					//
+					// Żeby lepiej było widać ruch kwadratów zrezygnowałem ze smugi, którą zostawiały kwadraty.
+					// Teraz canvas jest oczyszczana do zera w każdej klatce
+					ctx.clearRect(0,0,my_canvas.width, my_canvas.height);
+					widoczneKwadraty.length = 0;
+					//
+					for (var i=0; i<10; i++) {
+							wszystkieKwadraty.push({
+							// x i y zmieniłem na start_x i start_y 
+							start_x:my_canvas.width/2,
+							start_y:my_canvas.height/2,
+							h:rand(5,15),
+							// potrzebujemy target x i target y (jakaś losowa pozycja w obrębie canvas)
+							target_x:rand(0,Math.round(my_canvas.width)),
+							target_y:rand(0,Math.round(my_canvas.height)),
+							// potrzebujemy jeszcze aktualny czas i całkowity czas animacji
+							t:0,
+							d:2000,
+							//
+							// Speed X i Y nie będą nam potrzebne dlatego je wykomentowałem
+							// speedX:rand(-1000,1000)/100,
+							// speedY:rand(-1000,1000)/100,
+							//
+							// podobnie jak z x i y w przypadku kolorów potrzebujemy początkowe wartości (końcowe w naszym przypadku to zawsze 255)
+							start_r:255,
+							start_g:rand(0,240),
+							start_b:rand(0,100)
+						});
+					}
+					for (var i=0; i<wszystkieKwadraty.length; i++) {
+						var kwadrat = wszystkieKwadraty[i];
+						//
+						//zwiększamy czas
+						kwadrat.t+=1000/fps;
+						//
+						// Zmieniamy położenie i kolor
+						kwadrat.x = Easing.get(ease, kwadrat.start_x, kwadrat.target_x, kwadrat.t, kwadrat.d);
+						kwadrat.y = Easing.get(ease, kwadrat.start_y, kwadrat.target_y, kwadrat.t, kwadrat.d);
+						
+						kwadrat.r = Easing.getRound(ease, kwadrat.start_r, 255, kwadrat.t, kwadrat.d);
+						kwadrat.g = Easing.getRound(ease, kwadrat.start_g, 255, kwadrat.t, kwadrat.d);
+						kwadrat.b = Easing.getRound(ease, kwadrat.start_b, 255, kwadrat.t, kwadrat.d);
+						//
+						ctx.fillStyle = 'rgba('+kwadrat.r+','+kwadrat.g+','+kwadrat.b+',1)';
+						//
+						//
+						ctx.fillRect(kwadrat.x-kwadrat.h/2 ,kwadrat.y-kwadrat.h/2, kwadrat.h, kwadrat.h);
+						//
+						// Zamiast wyrzucać kwadraty na bazie ich położenia i koloru będziemy je wywalać porównując aktualny czas animacji do całkowitego czasu animacji
+						if(kwadrat.t<kwadrat.d){
+							// widoczne są wrzucane do tablicy
+							widoczneKwadraty.push(kwadrat)
+						}
+					}
+					wszystkieKwadraty = widoczneKwadraty.concat();
+				}
+			}
+			function rand(min,max){
+				return Math.floor(Math.random()*(max-min+1))+min;
+			}
+		</script>
+	</body>
+</html>

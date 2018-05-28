@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pl">
+	<head>
+		<meta charset="utf-8">
+		<title>Jeden kwadrat, jeden obiekt.</title>
+		<style>
+			body{
+				margin:0;
+				padding: 0;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<script src="js/rAF.js"></script>
+		<script>
+			var my_canvas = document.createElement('canvas');
+			// 
+			my_canvas.width = 500;
+			my_canvas.height = 500;
+			// 
+			document.body.appendChild(my_canvas);
+			//
+			var ctx = my_canvas.getContext('2d');
+			//
+			// Zamiast deklarować każdą zmienną osobno wrzucimy wszystko do jednego obiektu
+			var kwadrat = {
+				x:my_canvas.width/2,
+				y:my_canvas.height/2,
+				h:rand(15,25),
+				speedX:rand(-1000,1000)/100,
+				speedY:rand(-1000,1000)/100,
+				r:rand(0,240),
+				g:rand(0,240),
+				b:rand(0,240)
+			};
+			if(kwadrat.speedX==0 && kwadrat.speedY==0){
+				kwadrat.speedX = 1;
+			}
+			var fps = 60;
+			var lastTime = 0;			
+			animationLoop();
+			//
+			function animationLoop(time){
+				requestAnimationFrame( animationLoop );
+				if(time-lastTime>=1000/fps){
+					lastTime = time;
+					// 
+					ctx.fillStyle = 'rgba(255,255,255,0.2)';
+					ctx.fillRect(0,0,my_canvas.width, my_canvas.height);
+					// Teraz, aby wykorzystać wcześniej zdeklarowane właściwości kwadratu musimy odwołać się do zmiennej „kwadrat”, która przechowuje wartości koloru, pozycji, rozmiaru i prędkości.
+					ctx.fillStyle = 'rgba('+kwadrat.r+','+kwadrat.g+','+kwadrat.b+',1)';
+
+					//  += to skrót na zwiększanie wartości o tyle ile jest po prawej stronie od znaku równości
+					// Czyli zapis poniżej mówi: zwiększ wartość x o speedX
+					kwadrat.x += kwadrat.speedX;
+					kwadrat.y += kwadrat.speedY;
+					// rysowanie kwadratu
+					ctx.fillRect(kwadrat.x-kwadrat.h/2 ,kwadrat.y-kwadrat.h/2, kwadrat.h, kwadrat.h);
+				}
+			}
+			// funkcja losująca liczby całkowite z podanego zakresu
+			function rand(min,max){
+				return Math.floor(Math.random()*(max-min+1))+min;
+			}
+		</script>
+	</body>
+</html>

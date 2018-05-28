@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<!-- /////////////////////////////////////////////////////////////////////////////// -->
+<!-- Dodatkowe informacje o porównaniach: -->
+<!-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Comparison_Operators -->
+<!-- Dodatkowe informacje o operatorach logicznych: -->
+<!-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_Operators -->
+<!-- /////////////////////////////////////////////////////////////////////////////// -->
+
+<html lang="pl">
+	<head>
+		<meta charset="utf-8">
+		<title>Wspaniała wizualizacja</title>
+		<style>
+			body{
+				margin:0;
+				padding: 0;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<script>
+			// pisz tutaj 
+			// Boolean = prawda lub fałsz
+			var b1 = true;
+			console.log(b1);
+			var b2 = false;
+			console.log(b2);
+			// 
+			// 
+			// porównania
+			b1 = 3==9;
+			console.log('Czy 3 równa się 9?', b1);
+			b1 = 3!=9;
+			console.log('Czy 3 nie równa się 9?', b1);
+			b1 = "3"==3;
+			console.log('Czy "3" równa się 3?', b1);
+			b1 = "3"===3;
+			console.log('Czy "3" równa się dokładnie 3?', b1);
+			b1 = 9>4;
+			console.log('Czy 9 jest większe od 4?',b1);
+			b1 = 9<=9;
+			console.log('Czy 9 jest mniejsze lub równe 9?', b1);
+			// 
+			// 
+			// operatory logiczne
+			b1 = 3<9 && 3>10;
+			console.log('Czy 3 jest mniejsze od dziewięć i większe od 10?', b1);
+			b1 = 3<9 || 3>10;
+			console.log('Czy 3 jest mniejsze od 9 lub większe od 10?', b1);
+			b1 = !(3>10)
+			console.log('Czy 3 NIE jest większe od 10?', b1);
+			// 
+			// 
+			// inne vartości, które mogą być prawdziwe lub fałszywe
+			b1 = 'to jest string';
+			console.log("Czy 'to jest string'?", Boolean(b1) );
+			b1 = '';
+			console.log("Czy ''?", Boolean(b1) );
+			b1 = 213;
+			console.log("Czy 213?", Boolean(b1) );
+			b1 = 0;
+			console.log("Czy 0?", Boolean(b1) );
+			b1 = -100;
+			console.log("Czy -100?", Boolean(b1) );
+			var b2;
+			console.log(b2);
+		</script>
+	</body>
+</html>

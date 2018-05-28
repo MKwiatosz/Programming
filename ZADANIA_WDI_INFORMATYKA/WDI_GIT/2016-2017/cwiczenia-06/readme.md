@@ -1,0 +1,3 @@
+### 2016/2017 - Ćwiczenia
+
+Wylicz wartość e do zadanej liczby miejsc po przecinku posługując się szeregiem e = 1/0! + 1/1! + 1/2! + ...

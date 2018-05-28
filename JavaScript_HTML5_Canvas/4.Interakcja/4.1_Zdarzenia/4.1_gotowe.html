@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!-- Wszystkie typy eventów znajdziesz tutaj: -->
+<!-- https://developer.mozilla.org/en-US/docs/Web/Reference/Events -->
+<!-- O zdarzeniach i ich nasłuchiwaniu tutaj (łącznie z właściwościami obiektów przekazywanych do funkcji, którą odpala zdarzenie): -->
+<!-- https://developer.mozilla.org/en-US/docs/Web/API/Event -->
+<html lang="pl">
+	<head>
+		<meta charset="utf-8">
+		<title>Zdarzenia</title>
+		<style>
+			body{
+				margin:0;
+				padding: 0;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+
+		<script>
+			// dodawanie różnych Listenerów
+			window.addEventListener('keydown', onAction, false);
+			// do jednego elementu można przypisać wiele Listenerów, które będą opdalały te same lub różne funkcje
+			window.addEventListener('mousedown', onMouse, false);
+			window.addEventListener('mouseup', onMouse, false);
+			window.addEventListener('click', onMouse, false);
+			//
+			// funkcje reagujące na zdarzenia
+			function onAction(event){
+				// słowo kluczowe „this” odnosi się do elementu, który wywołał zdarzenie (w tym wypadku window)
+				console.log(this);
+				// Każde zdarzenie przekaże do funkcji nasłuchującej obiekt z wieloma ciekawymi informacjami.
+				// Jeśli chcesz mieć dostęp do tego obiektu, funkcja nasłuchująca musi przyjąć jeden argument.
+				// W tym wypadku nazwaliśmy go event, ale może się nazywać dowolnie.
+				console.log(event);
+				// Jedną z właściwości obiektu event jest type, która przechowuje łańcuch znaków z typem zdarzenia
+				console.log(event.type);
+			}
+			function onMouse(event){
+				// W zależności od typu zdarzeń lub obiektu, który wywołał zdarzenie można różnie reagować.
+				console.log(event.type)
+				if(event.type=='mouseup'){
+					window.removeEventListener('mouseup', onMouse);
+				}
+			}
+
+
+		</script>
+	</body>
+</html>

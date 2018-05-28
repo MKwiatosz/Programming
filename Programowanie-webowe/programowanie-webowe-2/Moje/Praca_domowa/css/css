@@ -1,0 +1,138 @@
+body
+
+{
+	background-image: url(../img/nature.jpg);
+	/* Background pattern from subtlepatterns.com */
+	background-position: center;
+	margin: 0;
+}
+
+.back
+{
+	width:  1366px;
+	height: 638px;
+	/*background-color: none;*/
+	margin: auto;
+	opacity: 0.4;
+}
+
+.box
+{
+	background-color: #DFE4FF;
+	width: 1366px;
+	height: 106px;
+	float: left;
+}
+
+.box1
+{
+	background-color: #FF7575;
+	width: 910px;
+	height: 106px;
+	float: left;
+}
+
+.box2
+{
+	background-color: #51E366;
+	width: 455px;
+	height:106px;
+	float: left;
+
+}
+
+.container
+{
+	background-color: white;
+	width: 910px;
+	height: 212px;
+	float: left;
+}
+
+.box3
+{
+
+	background-color: #FFF339;
+	width: 455px;
+	height: 106px;
+	float: left;
+}
+
+.box4
+{
+
+	background-color: #FFAE3B;
+	width: 455px;
+	height: 106px;
+	float: left;
+
+}
+
+.box5
+{
+
+	background-color: #6353FA;
+	width: 910px;
+	height: 106px;
+	float: left;
+
+}
+
+.box6
+{
+
+	background-color: #3B7CFF;
+	width: 455px;
+	height: 212px;
+	float: left;
+
+}
+
+.box7
+{
+
+	background-color: #DA35F3;
+	width: 455px;
+	height: 106px;
+	float: left;
+
+}
+
+.box8
+{
+
+	background-color: #BCFF3B;
+	width: 455px;
+	height: 106px;
+	float: left;
+
+}
+
+.box9
+{
+
+	background-color: #6CFE33;
+	width: 455px;
+	height: 106px;
+	float: left;
+
+}
+
+.box10
+{
+
+	background-color: #3769F7;
+	width: 682px;
+	height: 106px;
+	float: left;
+
+}
+
+.box11
+{
+
+	background-color: #33F1FD;
+	width: 683px;
+	height: 106px;
+	float: left;
+}

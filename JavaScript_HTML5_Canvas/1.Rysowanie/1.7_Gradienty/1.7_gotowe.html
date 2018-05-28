@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<!-- /////////////////////////////////////////////////////////////////////////////// -->
+<!-- Dodatkowe informacje o zmianie kolorów i styli tutaj: -->
+<!-- https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Canvas_tutorial/Applying_styles_and_colors -->
+<!-- /////////////////////////////////////////////////////////////////////////////// -->
+
+<html lang="pl">
+	<head>
+		<meta charset="utf-8">
+		<title>Wspaniała wizualizacja</title>
+		<style>
+			body{
+				margin:0;
+				padding: 0;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<script>
+			// 
+			var my_canvas = document.createElement('canvas');
+			//ustawiamy szerokość i wysokość canvas
+			my_canvas.width = 500;
+			my_canvas.height = 500;
+			// dodajemy canvas do elementu „body”
+			document.body.appendChild(my_canvas);
+			// przypisujemy do zmiennej o nazwie „ctx” context 2D elementu canvas
+			var ctx = my_canvas.getContext('2d');
+			//
+
+			// gradient
+			// Najpierw trzeba stworzyć gradient (podobnie jak swatch w InDesignie).
+			// Przy rysowaniu liniowych gradintów, potrzebna jest linia.
+			// Dlatego funkcja createLinearGradient przyjmuje cztery argumenty x i y pierwszego punktu linii oraz x i y drugiego punktu linii. Te wartości powinny są względem całej powierzchni canvas (nie powierzchni rysowanego prostokąta)
+			var my_gradient = ctx.createLinearGradient(11,400,110,320);
+			// Następnie określ kolory i ich położenie na wyznaczonej linii (w skali od 0 do 1)
+			my_gradient.addColorStop(0, '#dcf225');
+			my_gradient.addColorStop(0.32, '#0ce0ff');
+			my_gradient.addColorStop(1, '#ff4992');
+			ctx.fillStyle = my_gradient;
+			ctx.fillRect(10,310,100,100)
+
+
+
+		</script>
+	</body>
+</html>

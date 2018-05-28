@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hold Shift to Check Multiple Checkboxes</title>
+  <link href="https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed" rel="stylesheet">
+</head>
+<body>
+  <style>
+
+html
+{
+	width: 100%;
+	height: 100%;
+	font-family: 'Barlow Semi Condensed', sans-serif;
+	background-image: url(bgc.jpeg);
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-attachment: : fixed;
+	background-position: center center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.inbox
+{
+	display: flex;
+	flex-direction: column;
+	border: 1px solid rgba(242,242,242,0.5);
+	border-radius: 3px;
+	box-shadow: 9px 12px 95px 0px rgba(242,242,242,0.25);
+}
+
+.item
+{
+	display: flex;
+	align-items: center;
+	border: 0.1px solid black;
+	background: rgba(255,255,255,0.8);
+}
+
+
+.item:last-child
+{
+	border-bottom:0;
+}
+
+
+input:checked + p 
+{
+	opacity: 0.8;
+    background: rgba(255,255,255,0.8);
+    text-decoration: line-through;
+}
+
+
+input[type="checkbox"]
+{
+    margin:20px;
+    background: rgba(255,255,255,0.8);
+
+}
+
+p
+{
+	margin:0;
+    padding:20px;
+    transition:background 0.2s ease-in-out;
+    flex:1;
+    font-size: 20px;
+    font-weight: 600;
+    border-left: 1px solid black;
+    font-family: 'Barlow Semi Condensed', sans-serif;
+}
+
+
+
+  </style>
+
+  <div class="inbox">
+    <div class="item">
+      <input type="checkbox">
+      <p>This is an inbox layout.</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Check one item</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Hold down your Shift key</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Check a lower item</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Everything inbetween should also be set to checked</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Try do it with out any libraries</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Just regular JavaScript</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Good Luck!</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Don't forget to tweet your result!</p>
+    </div>
+  </div>
+
+<script>
+
+const checkboxes = document.querySelectorAll('.inbox input[type="checkbox"]');
+
+checkboxes.forEach(checkbox => checkbox.addEventListener('click', handleCheck));
+
+let lastChecked;
+
+function handleCheck(e) {
+	
+	let inBetween = false;
+
+	if (e.shiftKey && this.checked) {
+		checkboxes.forEach( checkbox => {
+			if (checkbox === this || checkbox === lastChecked ) {
+				inBetween = !inBetween;
+			}
+
+			if (inBetween) {
+				checkbox.checked = true;
+			}
+		});
+	}
+
+	lastChecked = this;
+}
+</script>
+</body>
+</html>

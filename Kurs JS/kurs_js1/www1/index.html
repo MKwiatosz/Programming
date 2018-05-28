@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html lang="pl">
+<head>
+	<meta charset="utf-8" />
+	<title>Odliczanie czasu</title>
+
+	<link href="main.css" rel="stylesheet" type="text/css" />
+
+	
+<script type="text/javascript">
+	
+		var dzisiaj = new Date();
+
+	var dzien 		= dzisiaj.getDate();
+	var miesiac 	= dzisiaj.getMonth()+1;
+	var rok 		= dzisiaj.getFullYear();
+
+	var godzina 	= dzisiaj.getHours();
+	var minuta 		= dzisaj.getMinutes();
+	var sekunda 	= dzisiaj.getSeconds();
+
+</script>
+
+</head>
+<body>
+
+	<div id="zegar"></div> 
+
+	<script type="text/javasript">
+		document.getElementById("zegar").innerHTML = dzien;
+	</script>
+	
+</body>
+</html>

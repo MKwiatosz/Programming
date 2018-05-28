@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<!-- Więcej o metodzie drawImage: -->
+<!-- https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Canvas_tutorial/Using_images -->
+<html lang="pl">
+	<head>
+		<meta charset="utf-8">
+		<title>Wklejanie obrazków</title>
+		<style>
+			body{
+				margin:0;
+				padding: 0;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<script>
+			// To już znasz. Nowa canvas dodana do DOM.
+			var my_canvas = document.createElement('canvas');
+			my_canvas.width = window.innerWidth;
+			my_canvas.height = window.innerHeight;
+			document.body.appendChild(my_canvas);
+			var ctx = my_canvas.getContext('2d');
+			//
+			var spam_img = new Image();
+			spam_img.src = 'spam.jpg';
+			spam_img.onload = drawSomeImage;
+
+			
+
+			function drawSomeImage (ev)
+			{
+				ctx.drawImage(spam_img,0,0);
+
+				ctx.drawImage(spam_img,0,100,2800,2000)
+				ctx.drawImage(spam_img,0,100,350,250)
+
+				ctx.imageSmoothingEnabled = false;
+				ctx.mozImageSmoothingEnabled = false;
+				ctx.oImageSmoothingEnabled = false;
+				ctx.webkitImageSmoothingEnabled = false;
+ctx.imageSmoothingEnabled = true;
+				ctx.drawImage(spam_img,0,100,2800,2000)
+
+				ctx.drawImage(spam_img,240,125,130,100,700,0,260,200)
+				
+			}	
+
+
+		</script>
+	</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<!-- /////////////////////////////////////////////////////////////////////////////// -->
+<!-- Artykuł Paula Irisha o requestAnimationFrame: -->
+<!-- http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/ -->
+<!-- requestAnimationFrame polyfill (czyli plik symulujący działanie jakiejś funkcji w starszych przeglądarkach): -->
+<!-- https://gist.github.com/paulirish/1579671 -->
+<!-- A tutaj ciekawy artykuł o tym czym są polyfills: -->
+<!-- http://remysharp.com/2010/10/08/what-is-a-polyfill/ -->
+<!-- /////////////////////////////////////////////////////////////////////////////// -->
+
+<html lang="pl">
+<head>
+	<meta charset="utf-8">
+	<title>Polyfill, czyli niech działa wszędzie.</title>
+	<style>
+		body{
+			margin:0;
+			padding: 0;
+			overflow: hidden;
+		}
+	</style>
+</head>
+<body>
+	<!-- Najpierw ładujemy skrypt, który zasymuluje działanie requestAnimationFrame w przeglądarkach, które nie obsługują tej funkcji (zobacz: http://caniuse.com/#feat=requestanimationframe) -->
+	<!-- We wcześniej napisanym kodzie nic nie musimy zmieniać -->
+	<!-- To jest urok dobrze napisanego polyfill -->
+	<script src="js/rAF.js"></script>
+
+	<script>
+		var my_canvas = document.createElement('canvas');
+		my_canvas.width = window.innerWidth;
+		my_canvas.height = window.innerHeight;
+		document.body.appendChild(my_canvas);
+			// 
+			var ctx = my_canvas.getContext('2d');
+			
+			var wszystkieKwadraty =[];
+			var widoczneKwadraty = [];
+
+			var fps = 60;
+
+			var lastTime = 0;			
+			animationLoop();
+			function animationLoop(time){
+				requestAnimationFrame( animationLoop );
+				if(time-lastTime>=1000/fps)
+				{
+					lastTime = time;
+					// częściowe czyszczenie canvas
+					ctx.fillStyle = 'rgba(255,255,255,0.2)';
+					ctx.fillRect(0,0,my_canvas.width, my_canvas.height);
+
+					for(var i=0; i<15;i++)
+					{
+						wszystkieKwadraty.push(
+						{
+							x:my_canvas.width/2,
+							y:my_canvas.height/2,
+							h:rand(5,10),
+							speedX:rand(-1000,1000)/100,
+							speedY:rand(-1000,1000)/100,
+							r:255,
+							g:rand(0,240),
+							b:rand(0,100)
+						});
+
+						if(wszystkieKwadraty[wszystkieKwadraty.length-1].speedX==0 && wszystkieKwadraty[wszystkieKwadraty.length-1].speedY==0){
+							kwadrat.speedX = 1;
+						}
+					}
+
+					
+
+					widoczneKwadraty.length = 0;
+
+					for (var i=0; i<wszystkieKwadraty.length; i++) 
+					{
+						var kwadrat = wszystkieKwadraty[i];
+						// kolor kwadratu
+						ctx.fillStyle='rgba('+kwadrat.r+','+kwadrat.g+','+kwadrat.b+',1)';
+						// 
+						kwadrat.x =kwadrat.x+kwadrat.speedX;
+						kwadrat.y = kwadrat.y+kwadrat.speedY;
+
+						kwadrat.speedY += 0.1;
+						
+						kwadrat.r = Math.min(255,kwadrat.r+2);
+						kwadrat.g = Math.min(255,kwadrat.g+2);
+						kwadrat.b = Math.min(255,kwadrat.b+2);
+						// 
+						ctx.fillRect(kwadrat.x-kwadrat.h/2 ,kwadrat.y-kwadrat.h/2,kwadrat.h, kwadrat.h);
+
+						if(kwadrat.x+kwadrat.h/2>0 && kwadrat.x-kwadrat.h/2 <my_canvas.width && kwadrat.y+kwadrat.h/2>0 && kwadrat.y-kwadrat.h/2<my_canvas.height && (kwadrat.r!=255 || kwadrat.g!=255 || kwadrat.b!=255))
+						{
+							widoczneKwadraty.push(kwadrat);
+						}
+
+					}
+
+					wszystkieKwadraty = widoczneKwadraty.concat();
+
+				}
+			}
+
+			function rand(min,max)
+			{
+				return Math.floor (Math.random()*(max-min+1)+min)
+			}
+		</script>
+	</body>
+	</html>

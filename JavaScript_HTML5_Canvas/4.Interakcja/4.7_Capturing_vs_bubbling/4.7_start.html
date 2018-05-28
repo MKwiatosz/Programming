@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pl">
+	<head>
+		<meta charset="utf-8">
+		<title>Capture vs Bubbling</title>
+		<style>
+			body{
+				margin:0;
+				padding: 0;
+			}
+			div{
+				padding:2em;
+			}
+			#container{
+				background-color: red;
+			}
+			#sub_container{
+				background-color: khaki;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="container">
+			<div id="sub_container">
+				<p>To jest jakiś tekst bardzo dziwny z <a href="http://kursownik.pl" target="_blanc">linkiem</a> w środku.</p>
+			</div>
+		</div>
+
+		<script>
+			var container = document.getElementById('container');
+			var sub_container = document.getElementById('sub_container');
+			var p = document.getElementsByTagName('p')[0];
+			var a = document.getElementsByTagName('a')[0];
+
+			container.addEventListener('click',clickMe,false);
+			sub_container.addEventListener('click',clickMe,false);
+			p.addEventListener('click',clickMe,false);
+			a.addEventListener('click',clickMe,false);
+			function clickMe(event)
+			{
+				event.preventDefault();
+				event.stopPropagation();
+				console.log(this);
+			}
+			
+		</script>
+	</body>
+</html>

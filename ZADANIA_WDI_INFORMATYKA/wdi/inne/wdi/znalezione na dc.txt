@@ -1,0 +1,786 @@
+Program Wielomiany_wskazniki; 
+
+type 
+pwezel=^wezel; 
+wezel=record 
+potega:integer; 
+wspolcz:integer; 
+next:pwezel; 
+end; 
+
+procedure Dodaj(w1,w2:pwezel); 
+
+var w,first1,first2,first:pwezel; 
+
+begin 
+w1:=first1; {zakladam ze pierwszy wiel. ma < lub = potege przy 1.
+wspolczynniku} 
+new(w); w^.next:=nil; first:=w; 
+w^.potega:=w1^.potega; 
+w^.wspolcz:=w1^.wspolcz; 
+repeat 
+w:=w^.next; w1:=w1^.next; 
+w^.potega:=w1^.potega; 
+w^.wspolcz:=w1^.wspolcz 
+until w1^.next=nil; {przepisanie wartosci w1 do w} 
+
+w:=first; w2^.next:=first; 
+if w^.potega=w2^.potega then w^.wspolcz:=w^.wspolcz+w2^.wspolcz else 
+if w^.potega<w2^.potega then begin w2^.next:=w^.next; w^.next:=w2 end; 
+repeat 
+w:=w^.next; w2:=w2^.next; 
+if w2^.potega=w^.potega then w^.wspolcz:=w^.wspolcz+w2^.wspolcz else 
+if w^.potega<w2^.potega then begin w2^.next:=w^.next; w^.next:=w2 end 
+until w2^.next=nil; 
+end; 
+
+procedure Odejmij(w1,w2:pwezel); 
+
+var w,first1,first2,first:pwezel; 
+
+begin 
+w1:=first1; {zakladam ze pierwszy wiel. ma < lub = potege przy 1.
+wspolczynniku} 
+new(w); w^.next:=nil; first:=w; 
+w^.potega:=w1^.potega; 
+w^.wspolcz:=w1^.wspolcz; 
+repeat 
+w:=w^.next; w1:=w1^.next; 
+w^.potega:=w1^.potega; 
+w^.wspolcz:=w1^.wspolcz 
+until w1^.next=nil; {przepisanie wartosci w1 do w} 
+
+w:=first; w:=first; 
+if w^.potega=w2^.potega then w^.wspolcz:=w^.wspolcz-w2^.wspolcz else 
+if w^.potega<w2^.potega then begin w2^.next:=w^.next; w^.next:=w2;
+w2^.wspolcz:=-w2^.wspolcz end; 
+repeat 
+w:=w^.next; w2:=w2^.next; 
+if w2^.potega=w^.potega then w^.wspolcz:=w^.wspolcz-w2^.wspolcz else 
+if w^.potega<w2^.potega then begin w2^.next:=w^.next; w^.next:=w2;
+w2^.wspolcz:=-w2^.wspolcz end 
+until w2^.next=nil; 
+end; 
+
+procedure Pomnoz(w1,w2:pwezel); 
+
+var w,first1,first2,first:pwezel; 
+
+begin 
+w1:=first1; {zakladam ze pierwszy wiel. ma < lub = potege przy 1.
+wspolczynniku} 
+new(w); w^.next:=nil; first:=w; 
+w^.potega:=w1^.potega; 
+w^.wspolcz:=w1^.wspolcz; 
+repeat 
+w:=w^.next; w1:=w1^.next; 
+w^.potega:=w1^.potega; 
+w^.wspolcz:=w1^.wspolcz 
+until w1^.next=nil; {przepisanie wartosci w1 do w} 
+
+w:=first; w2:=first2; 
+while w^.next<>nil do 
+begin 
+while w2^.next<>nil do 
+begin 
+w^.potega:=w^.potega+w2^.potega; 
+w^.wspolcz:=w^.wspolcz*w2^.wspolcz; 
+w2:=w2^.next 
+end; 
+w:=w^.next; 
+w2^.next:=first2 
+end 
+end;
+
+ 
+Program Zera_w_tablicy; 
+
+const 
+max=50; 
+
+type 
+tablica=array[1..max,1..max] of integer; 
+pwezel=^wezel; 
+wezel=record 
+m,n,wart:integer; 
+next:pwezel 
+end; 
+
+procedure Przeksztalc(tab:tablica); 
+
+var first:pwezel; 
+p,r:pwezel; 
+i,j:integer; 
+
+begin 
+new(r); 
+r^.next:=nil; 
+r^.m:=0; 
+r^.n:=0; 
+r^.wart:=0; 
+first:=r; 
+
+for i:=1 to max do 
+for j:=1 to max do 
+if tab[i,j]<>0 then 
+begin 
+new(p); 
+p^.next:=r^.next; 
+p^.m:=i; 
+p^.n:=j; 
+p^.wart:=tab[i,j]; 
+r^.next:=p; 
+r:=r^.next 
+end 
+end; 
+
+function Sprawdz(i,j:integer):integer; 
+
+var p,first:pwezel; 
+
+begin 
+p:=first; 
+if (p^.m=i) and (p^.n=j) then sprawdz:=p^.wart else 
+repeat 
+p:=p^.next; 
+if (p^.m=i) and (p^.n=j) then sprawdz:=p^.wart; 
+until p^.next=nil 
+end;
+
+ 
+program Suma_dwoch_funkcja; {To tez zrobilem bez tej} 
+{pieprzonej mnogosciowej} 
+
+type 
+pwezel=^wezel; 
+wezel=record 
+next:pwezel; 
+key:integer 
+end; 
+
+procedure usun(lista:pwezel); 
+
+begin 
+if lista<>nil then 
+begin 
+usun(lista^.next); 
+dispose(lista) 
+end 
+end; 
+
+function sumuj(first1,first2:pwezel):pwezel; 
+
+var l1,l2,lista,first:pwezel; 
+
+begin 
+new(lista); 
+lista^.next:=nil; 
+lista^.key:=0; 
+first:=lista; 
+first1:=l1; 
+first2:=l2; 
+
+repeat 
+lista^.key:=l1^.key+l2^.key; 
+l1:=l1^.next; 
+l2:=l2^.next; 
+lista:=lista^.next; 
+until (l1^.next=nil) and (l2^.next=nil); 
+
+usun(l1); usun(l2); 
+end;
+
+ 
+program Suma_dwoch; {na razie zrobilem zwykla sume} 
+{Musze poprawic na mnogosciowa bo nie wiedzialem co to jest} 
+
+type 
+pwezel=^wezel; 
+wezel=record 
+next:pwezel; 
+key:integer 
+end; 
+
+procedure usun(lista:pwezel); 
+
+begin 
+if lista<>nil then 
+begin 
+usun(lista^.next); 
+dispose(lista) 
+end 
+end; 
+
+procedure sumuj(l1,l2:pwezel); 
+
+var lista,first1,first2,first:pwezel; 
+
+begin 
+new(lista); 
+lista^.next:=nil; 
+lista^.key:=0; 
+first:=lista; 
+
+repeat 
+lista^.key:=l1^.key+l2^.key; 
+l1:=l1^.next; 
+l2:=l2^.next; 
+lista:=lista^.next; 
+until (l1^.next=nil) and (l2^.next=nil); 
+
+usun(l1); usun(l2); 
+end;
+
+ 
+program Ile_w_cyklu; {to jest takie wymyslone. Inaczej nie wiem jak zrobic} 
+
+const max=10000; 
+
+type 
+pwezel=^wezel; 
+wezel=record 
+next1,next2:pwezel; 
+key:integer 
+end; 
+
+function cykl(first:pwezel):integer; 
+
+var r:pwezel; 
+il,w1,w2:integer; 
+
+begin 
+r^.next1:=first; 
+r^.next2:=first; 
+w1:=1; 
+repeat 
+r:=r^.next1; 
+inc(w1); 
+until r^.next1=nil; 
+
+if w1>max then writeln('Za duzo'); 
+
+for w2:=1 to w1 do 
+r:=r^.next2; 
+first:=r; 
+
+il:=1; 
+repeat 
+inc(il); 
+r:=r^.next2 
+until r^.next2=first; 
+
+write(il);
+
+ 
+program Usun_z_listy; 
+
+type 
+pwezel=^wezel; 
+wezel=record 
+next,prev:pwezel; 
+poz:integer 
+end; 
+
+procedure usun(first:pwezel;n:integer); 
+
+var w:integer; 
+r:pwezel; 
+
+begin 
+
+w:=1; r:=first; 
+while r^.next<>nil do begin 
+r:=r^.next; inc(w) end; 
+if n>w then begin writeln('Za daleko'); exit end; 
+
+w:=1; r:=first; 
+while w<n do 
+begin r:=r^.next; inc(w) end; 
+
+if first=nil then begin writeln('Lista jest pusta'); exit end else 
+if (r^.next=nil) and (r^.prev=nil) then first:=nil else 
+if (r^.prev=nil) and (r^.next<>nil) then 
+begin r^.next^.prev:=r^.prev; first:=r^.next end else 
+if (r^.prev<>nil) and (r^.next=nil) then r^.prev^.next:=r^.next else 
+if (r^.prev<>nil) and (r^.next<>nil) then 
+begin 
+r^.prev^.next:=r^.next; 
+r^.next^.prev:=r^.prev 
+end; 
+
+dispose(r); 
+
+r:=first; w:=1; 
+repeat 
+r^.poz:=w; inc(w); r:=r^.next 
+until r^.next=nil 
+
+end;
+
+ 
+program Wstaw_do_listy; 
+
+type 
+pwezel=^wezel; 
+wezel=record 
+next,prev:pwezel; 
+poz:integer 
+end; 
+
+procedure wstaw(first,now:pwezel;n:integer); 
+
+var star:pwezel; 
+w:integer; 
+
+begin {wstawienie przed wskazywany element} 
+
+star:=first; 
+w:=1; {zeby sie dostac do elementu} 
+while w<n do 
+begin star:=star^.next; inc(w) end; 
+
+new(now); 
+now^.next:=star; 
+now^.prev:=star^.prev; 
+star^.prev:=now; 
+if star^.prev=nil then first:=now else {jesli wstawiamy na poczatku} 
+star^.prev^.next:=now; 
+now^.poz:=n; 
+
+repeat 
+now:=now^.next; now^.poz:=now^.poz+1; 
+until now^.next=nil 
+
+end;
+
+ 
+Program Odwracanie; 
+
+const maxroz=20; 
+
+type tablica=array[1..maxroz,1..maxroz] of integer; 
+
+var t1:tablica; 
+max:integer; 
+
+procedure Odwroc(var t1:tablica); 
+
+var i,j,n: integer; 
+t2:tablica; 
+
+begin 
+n:=max; 
+for i:=1 to max do 
+begin 
+for j:=1 to n+i-1 do 
+t2[j,n]:=t1[i,j]; 
+n:=n-1 
+end; 
+
+t1:=t2 
+end; 
+
+procedure Czytaj(var t:tablica); 
+
+var i,j:integer; 
+
+begin 
+for i:=1 to max do 
+for j:=1 to max do 
+readln(t[i,j]) 
+end; 
+
+procedure Drukuj(t:tablica); 
+
+var i,j:integer; 
+
+begin 
+for i:=1 to max do 
+begin 
+for j:=1 to max do 
+write(t[i,j]:3); 
+writeln 
+end 
+end; 
+
+begin {poczatek programu} 
+writeln('Podaj rozmiar tablicy'); 
+readln(max); 
+writeln('Podaj elementy tablicy'); 
+Czytaj(t1); 
+writeln('Elementy tablicy:'); 
+Drukuj(t1); 
+Odwroc(t1); 
+writeln('Elementy odwroconej tablicy'); 
+Drukuj(t1) 
+end.
+
+ 
+Program Tablice_5; 
+
+const 
+max1=100; 
+max2=200; 
+
+type 
+wiersz=array[1..max2] of integer; 
+tablica=array[1..max1] of wiersz; 
+
+Procedure Sortuj(var w:wiersz); 
+
+var i,j,pom:integer; 
+
+begin 
+for i:=2 to max2 do 
+begin 
+j:=i; 
+pom:=w[i]; 
+while (j>1) and (w[j-1]>pom) do 
+begin 
+w[j]:=w[j-1]; 
+j:=j-1 
+end; 
+w[j]:=pom; 
+end 
+end; 
+
+Function Sprawdz(w:wiersz):boolean; 
+
+var i,rozn:integer; 
+jest:boolean; 
+
+begin 
+i:=2; 
+rozn:=w[2]-w[1]; 
+jest:=true; 
+while (i<>max2) and jest do 
+begin 
+if w[i+1]-w[i]<>rozn then 
+jest:=false; 
+i:=i+1 
+end; 
+Sprawdz:=jest; 
+end; 
+
+Function Zlicz(t:tablica):integer; 
+
+var i,licznik:integer; 
+
+begin 
+licznik:=0; 
+for i:=1 to max1 do 
+begin 
+Sortuj(t[i]); 
+if Sprawdz(t[i]) then licznik:=licznik+1 
+end; 
+Zlicz:=licznik 
+end;
+
+ 
+Program Tablice_4; 
+
+const 
+max=20; 
+
+type 
+tablica=array[1..max,1..max] of integer; 
+
+var t:tablica; 
+m,n,pocz,rozn:integer; 
+
+procedure Wypeln(var t:tablica;pocz,rozn:integer); 
+
+var i,j,di,dj,k,liczn,l:integer; 
+
+begin 
+i:=1; 
+j:=1; 
+
+t[i,j]:=pocz; 
+liczn:=0; 
+
+k:=1; 
+di:=0; 
+dj:=1; 
+
+for l:=1 to m*n do 
+begin 
+t[i,j]:=pocz + liczn*rozn; 
+case k of 
+1: if i+j=n+1 then 
+begin 
+di:=1; dj:=0; k:=2 
+end; 
+2: if i-j=m-n then 
+begin 
+di:=0; dj:=-1; k:=3 
+end; 
+3: if i+j=m+1 then 
+begin 
+di:=-1; dj:=0; k:=4 
+end; 
+4: if i-j=1 then 
+begin 
+di:=0; dj:=1; k:=1 
+end 
+end; {case} 
+i:=i+di; 
+j:=j+dj; 
+liczn:=liczn+1; 
+end {for} 
+end; {koniec procedury} 
+
+procedure Drukuj(t:tablica); 
+
+var i,j:integer; 
+
+begin 
+for i:=1 to m do 
+begin 
+for j:=1 to n do 
+write(t[i,j]:3); 
+writeln 
+end 
+end; 
+
+begin {poczatek programu} 
+writeln('Podaj rozmiary tablicy:'); 
+readln(m,n); 
+writeln('Podaj poczatkowy wyraz ciagu'); 
+readln(pocz); 
+writeln('Podaj roznice ciagu'); 
+readln(rozn); 
+Wypeln(t,pocz,rozn); 
+Drukuj(t); 
+readln 
+end.
+
+ 
+program Tablice_2; 
+
+const 
+max1=100; 
+max2=200; 
+
+type wiersz=array[1..max1] of integer; 
+tablica=array[1..max2] of wiersz; 
+
+Procedure Sortuj(var w:wiersz); 
+
+var i,j,pom:integer; 
+
+begin 
+for i:=2 to max1 do 
+begin 
+j:=i; 
+pom:=w[i]; 
+while (j>1) and (w[j-1]>pom) do 
+begin 
+w[j]:=w[j-1]; 
+j:=j-1 
+end; 
+w[j]:=pom; 
+end 
+end; 
+
+Function Zlicz(w:wiersz):integer; 
+
+var licznik,i,najw,liczba:integer; 
+
+begin 
+liczba:=w[1]; 
+licznik:=1; 
+najw:=licznik; 
+for i:=2 to max1 do 
+begin 
+if w[i]=liczba then licznik:=licznik+1 else 
+begin if licznik>najw then najw:=licznik; 
+liczba:=w[i]; licznik:=1 end 
+end; 
+Zlicz:=najw 
+end; 
+
+
+function Zwroc(t:tablica):integer; 
+
+var max,i:integer; 
+
+begin 
+Sortuj(t[1]); 
+max:=Zlicz(t[1]); 
+Zwroc:=1; 
+for i:=2 to max2 do begin 
+Sortuj(t[i]); 
+if Zlicz(t[i])>max then 
+begin 
+max:=Zlicz(t[i]); 
+Zwroc:=i 
+end 
+end; 
+
+
+ 
+Program Tablice_1; 
+
+const 
+max1=10; 
+max2=20; 
+
+type tablica=array[1..max1] of array[1..max2] of real; 
+
+function wartosc(t:tablica):integer; 
+
+var i,j:integer; 
+najwier,najmkol:real; 
+
+begin 
+wartosc:=1; 
+najwier:=t[1][1]; 
+najmkol:=t[1][1]; 
+
+for j:=1 to max2 do 
+if t[1][j]>najwier then najwier:=t[1][j]; 
+najmkol:=najwier; 
+
+for i:=2 to max1 do 
+begin 
+najwier:=t[i][1]; 
+for j:=2 to max2 do 
+if t[i][j]>najwier then 
+najwier:=t[i][j]; 
+if najwier<najmkol then 
+begin 
+najmkol:=najwier; 
+wartosc:=i 
+end 
+end;
+
+ 
+Program Ulamek; 
+
+uses Crt; 
+
+var licznik,mianownik,dokl:integer; 
+
+procedure Oblicz(licz,mian,dokl:integer); 
+
+var reszta,wynik,i:integer; 
+
+begin 
+i:=1; 
+if licz<mian then begin 
+licz:=10*licz; wynik:=licz div mian; reszta:=licz mod mian; write('0,',wynik)
+end 
+else begin wynik:=licz div mian; reszta:=licz mod mian; write(wynik,',') end; 
+
+repeat 
+begin 
+wynik:=10*reszta div mian; 
+reszta:=10*reszta - wynik*mian; 
+i:=i+1; 
+write(wynik) 
+end; 
+until (reszta=0) or (i>=dokl) 
+end; 
+
+begin 
+clrscr; 
+writeln('Podaj wartosc licznika'); 
+readln(licznik); 
+writeln('Podaj wartosc mianownika'); 
+readln(mianownik); 
+writeln('Podaj dokladnosc'); 
+readln(dokl); 
+writeln('Oto liczba'); 
+Oblicz(licznik,mianownik,dokl); 
+readln 
+end.
+
+ 
+Program Systemek; 
+
+uses Crt; 
+
+var licz,podst:integer; 
+
+procedure zamien(liczba,podstawa:integer); 
+
+type tablica=array[1..100] of integer; 
+
+var cyfra,licznik,i:integer; 
+tab:tablica; 
+
+begin 
+licznik:=0; 
+while liczba <> 0 do 
+begin 
+cyfra:=liczba mod podstawa; 
+liczba:=liczba div podstawa; 
+licznik:=licznik + 1; 
+tab[licznik]:=cyfra; 
+end; 
+
+for i:=licznik downto 1 do 
+write(tab[i]:2) 
+
+end; 
+
+begin 
+clrscr; 
+writeln('Jaka liczbe chcesz zamienic?'); 
+readln(licz); 
+writeln('A moze bys podal jeszcze podstawe, co?'); 
+readln(podst); 
+zamien(licz,podst); 
+readln 
+end.
+
+ 
+Program Czy_wielokrotnosc; {wersja 2.0 beta :) } 
+
+uses Crt; 
+
+var a,b,liczba:integer; 
+
+begin 
+Clrscr; 
+writeln('Podaj liczbe naturalna'); 
+writeln('Jak sie uda to znalazles'); 
+readln(liczba); 
+for a:=1 to round(sqrt(liczba)) do 
+if liczba mod a*a=0 then 
+begin 
+for b:=1 to round(sqrt(liczba)) do 
+if liczba mod b*b*b <>0 then 
+begin 
+writeln('Tak!!!'); 
+readln; 
+exit 
+end 
+end; {if} 
+
+writeln('Masz pecha stary'); 
+readln 
+end.
+
+ 
+Program TrojkiPitagorejskie; 
+
+uses Crt; 
+
+var a,b,c,m:integer; 
+
+begin 
+Clrscr; 
+writeln('Podaj liczbe'); 
+read(m); 
+for c:=1 to m do 
+for b:=1 to c-1 do 
+begin 
+a:=trunc(sqrt(c*c-b*b)); 
+if a*a+b*b=c*c then 
+writeln(a:3,b:3,c:3); 
+end; 
+end.
+
+ 

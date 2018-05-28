@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<!-- Dla zwiększenia czytelności pozostawiłem jedynie komentarze dotyczące zmian.-->
+<html lang="pl">
+	<head>
+		<meta charset="utf-8">
+		<title>Dopasowanie wielkości canvas (resize)</title>
+		<style>
+			body{
+				margin:0;
+				padding: 0;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<script src="js/rAF.js"></script>
+		<script src="js/easing.js"></script>
+		<script>
+			var my_canvas = document.createElement('canvas');
+			// my_canvas.width = window.innerWidth;
+			// my_canvas.height = window.innerHeight;
+			// Szerokość i wysokość canvas będziemy zmienniać w funkcji layout, więc nie ma potrzeby pisać tego jeszcze raz. Można zwyczajnie odpalić layout()
+			layout()
+			// Przypiszemy Listenera do elementu window.
+			// Będzie odpalał funkcję layout za każdym razem gry zmienią się wymiary okna.
+			window.addEventListener('resize', layout, false)
+			//
+			//
+			document.body.appendChild(my_canvas);
+			var ctx = my_canvas.getContext('2d');
+			var wszystkieKwadraty = [];
+
+			var widoczneKwadraty = [];
+			var fps = 50;
+			//
+			var ease = 'easeOutQuart';
+			//
+			var lastTime = 0;
+			animationLoop();
+			function animationLoop(time){
+				requestAnimationFrame( animationLoop );
+				if(time-lastTime>=1000/fps){
+					lastTime = time;
+					//
+					ctx.clearRect(0,0,my_canvas.width, my_canvas.height);
+					widoczneKwadraty.length = 0;
+					//
+					for (var i=0; i<10; i++) {
+							wszystkieKwadraty.push({
+							// Aby uniknąć problemu związanego z bezwzglęnymi wartościami
+							// będziemy przechowywali pozycję względem szerokości canvas
+							// start zawsze jest na środku boków canvas
+							start_x:0.5,
+							start_y:0.5,
+							h:rand(5,15),
+							// tak samo zapiszemy długość promienia
+							target_r:0.4,
+							start_a:rand(0,360),
+							t:0,
+							d:2000,
+							start_r:255,
+							start_g:rand(0,240),
+							start_b:rand(0,100)
+						});
+					}
+					for (var i=0; i<wszystkieKwadraty.length; i++) {
+						var kwadrat = wszystkieKwadraty[i];
+						//
+						kwadrat.t+=1000/fps;
+						//
+						// Ponieważ promień (target_r) nie jest zapisywany w pixelach tylko w ułamku wysokości canvas musimy to uwzględnić w obliczeniu aktualnego promienia.
+						// Było tak:
+						// kwadrat.r = Easing.get(ease, 0, kwadrat.target_r, kwadrat.t, kwadrat.d);
+						// Jest tak (terget_r został przemnożony przez wysokość canvas, wynik został zaokrąglony):
+						kwadrat.r = Easing.get(ease, 0, Math.round(kwadrat.target_r*my_canvas.height), kwadrat.t, kwadrat.d);
+						//
+						kwadrat.a = Easing.get(ease, kwadrat.start_a, kwadrat.start_a+180, kwadrat.t, kwadrat.d);
+						//
+						// to co zrobiliśmy z promieniem trzeba zrobić z pozycją x i y
+						kwadrat.x = Math.sin(Math.PI/180*kwadrat.a)*kwadrat.r+kwadrat.start_x*my_canvas.width;
+						kwadrat.y = Math.cos(Math.PI/180*kwadrat.a)*kwadrat.r+kwadrat.start_y*my_canvas.height;
+						//
+						ctx.fillStyle = 'rgba('+kwadrat.start_r+','+kwadrat.start_g+','+kwadrat.start_b+',1)';
+						ctx.fillRect(kwadrat.x-kwadrat.h/2 ,kwadrat.y-kwadrat.h/2, kwadrat.h, kwadrat.h);
+						if(kwadrat.t<kwadrat.d){
+							widoczneKwadraty.push(kwadrat)
+						}
+					}
+					wszystkieKwadraty = widoczneKwadraty.concat();
+				}
+			}
+			// deklaruję funkcję layoutć
+			function layout(event){// przyjmie ona obiekt z informacją o zdarzeniu (chociaż nie będą one nam w tym przypadku potrzebne)
+				my_canvas.width = window.innerWidth;
+				my_canvas.height = window.innerHeight;
+			}
+			function rand(min,max){
+				return Math.floor(Math.random()*(max-min+1))+min;
+			}
+		</script>
+	</body>
+</html>

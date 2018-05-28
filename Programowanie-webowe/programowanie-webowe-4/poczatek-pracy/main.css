@@ -1,0 +1,87 @@
+body
+
+{
+	background-image: url(img/dark.jpg);
+	background-position: center top;
+	font-family: Arial;
+}
+ 
+#container
+{
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 50px;
+	width: 900px;
+	text-align: center;
+}
+
+.kurs 
+{
+	display: inline-block;
+	width: 400px;
+	background-color: white;
+	margin: 0 20px;
+	border: 1px solid #453E3E;
+}
+
+.kurs p
+{
+	font-size: 12px;
+	text-align: justify;
+	line-height: 140%;
+	margin: 20px;
+}
+
+h1
+{
+	font-size: 22px;
+	font-weight: bold;
+	font-style: oblique;
+	text-align: center;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+}
+
+h2
+{
+	font-size: 18px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	text-align: center;
+}
+
+ul.lista
+{
+	text-align: left;
+	list-style-image: url(img/hand.jpg);
+	list-style-position: outside;
+}
+
+ul.lista > li
+{
+	margin: 10px;
+}
+
+a:link
+{
+	color: lime;
+	text-decoration: none;
+}
+
+a:visited
+{
+	color: lime;
+	text-decoration: none;
+}
+
+a:hover
+{
+	color: #241CC1;
+	text-decoration: none;
+}
+
+a:active
+{
+	color: red;
+	text-decoration: none;
+}

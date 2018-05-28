@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+	<meta charset="utf-8">
+	<title>Easing</title>
+	<style>
+		body{
+			margin:0;
+			padding: 0;
+			overflow: hidden;
+		}
+	</style>
+</head>
+<body>
+	<script src="js/rAF.js"></script>
+	<script src="js/easing.js"></script>
+	<script>
+			// canvas na pełną wysokość i szerokość okna
+			var my_canvas = document.createElement('canvas');
+			my_canvas.width = window.innerWidth;
+			my_canvas.height = window.innerHeight;
+			//
+			document.body.appendChild(my_canvas);
+			//
+			var ctx = my_canvas.getContext('2d');
+			//
+			var x = Math.round(my_canvas.width*0.1);
+			var y = 100;
+			var h = 100;
+			var forward = true;
+			var d = 1000;
+			var t = 0;
+			// 
+			var fps = 50;
+			var lastTime = 0;			
+			animationLoop();
+			//
+			function animationLoop(time){
+				requestAnimationFrame( animationLoop );
+				if(time-lastTime>=1000/fps){
+					lastTime = time;
+					// czyszczenie całej canvas
+					ctx.clearRect(0,0,my_canvas.width, my_canvas.height);
+					// rysowanie
+					ctx.fillRect(x,y,h,h);
+
+					x = Easing.get('easeOutExpo',
+						(forward ? my_canvas.width*0.1 : my_canvas.width*0.9-h),
+						(forward ? my_canvas.width*0.9-h : my_canvas.width*0.1),
+						t,
+						d
+						);
+
+					t += 1000/fps;
+
+					if (t>=d) 
+					{
+						forward = !forward;
+						t = 0;
+					}
+					
+				}
+			}
+
+		</script>
+	</body>
+	</html>

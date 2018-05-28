@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!-- /////////////////////////////////////////////////////////////////////////////// -->
+<!-- Artykuł Paula Irisha o requestAnimationFrame: -->
+<!-- http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/ -->
+<!-- /////////////////////////////////////////////////////////////////////////////// -->
+
+<html lang="pl">
+	<head>
+		<meta charset="utf-8">
+		<title>Lepsza animacja (requestAnimationFrame)</title>
+		<style>
+			body{
+				margin:0;
+				padding: 0;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<script>
+			var my_canvas = document.createElement('canvas');
+			my_canvas.width = 500;
+			my_canvas.height = 500;
+			document.body.appendChild(my_canvas);
+			var ctx = my_canvas.getContext('2d');
+			//
+			var x = my_canvas.width/2; 
+			var y = my_canvas.height/2;
+			var h = 40;
+			var fps = 10;
+
+			// setInterval(animationLoop,1000/fps);
+
+
+			var lastTime = 0;
+			animationLoop();
+
+			function animationLoop(time)
+			{ 
+					requestAnimationFrame(animationLoop);
+
+					if(time-lastTime>=1000/fps)
+					{
+
+						console.log(time-lastTime);
+						lastTime = time;
+
+						ctx.fillStyle = 'rgba(255,255,255,0.2)';
+						ctx.fillRect(0,0,my_canvas.width, my_canvas.height);
+						// kolor kwadratu
+						ctx.fillStyle = 'black';
+					
+						x = x+2;
+						y = y+2;
+						
+						ctx.fillRect(x-h/2 ,y-h/2, h, h);
+					}
+			}
+		</script>
+	</body>
+</html>

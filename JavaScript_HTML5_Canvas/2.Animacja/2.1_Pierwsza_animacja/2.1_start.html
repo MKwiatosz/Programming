@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!-- /////////////////////////////////////////////////////////////////////////////// -->
+<!-- Artykuł Paula Irisha o requestAnimationFrame: -->
+<!-- http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/ -->
+<!-- /////////////////////////////////////////////////////////////////////////////// -->
+
+<html lang="pl">
+	<head>
+		<meta charset="utf-8">
+		<title>Pierwsza animacja</title>
+		<style>
+			body{
+				margin:0;
+				padding: 0;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<script>
+			var my_canvas = document.createElement('canvas');
+			//ustawiamy szerokość i wysokość canvas
+			my_canvas.width = 500;
+			my_canvas.height = 500;
+			// dodajemy canvas do elementu „body”
+			document.body.appendChild(my_canvas);
+			// Jeśli chcemy coś wyświetlić w elemencie canvas musimy skorzystać z obiektu „context 2D" (lub WebGL jeśli chcemy rysować elementy 3D)
+			var ctx = my_canvas.getContext('2d');
+			// 
+			// 
+			var x = my_canvas.width/2;
+			var y = my_canvas.height/2;
+			var h = 40;
+			var fps = 60;
+
+			setInterval(animationLoop,1000/fps);
+
+			function animationLoop()
+			{
+				// ctx.clearRect(0,0,my_canvas.width,my_canvas.height);
+				ctx.fillStyle = 'rgba(255,255,255,0.3)';
+				ctx.fillRect(0,0,my_canvas.width, my_canvas.height);
+				ctx.fillStyle = 'black';
+
+				x = x+2;
+				y = y+2;
+				ctx.fillRect(x-h/2,y-h/2,h,h);
+			}
+
+			
+
+
+
+		</script>
+	</body>
+</html>

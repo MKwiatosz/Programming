@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pl">
+	<head>
+		<meta charset="utf-8">
+		<title>Easing | Etap 2</title>
+		<style>
+			body{
+				margin:0;
+				padding: 0;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<script src="js/rAF.js"></script>
+		<!-- ======================== -->
+		<!-- Ładujemy easing.js -->
+		<script src="js/easing.js"></script>
+		<!-- ======================== -->
+		<!-- ======================== -->
+		<script>
+			// canvas na pełną wysokość i szerokość okna
+			var my_canvas = document.createElement('canvas');
+			my_canvas.width = window.innerWidth;
+			my_canvas.height = window.innerHeight;
+			//
+			document.body.appendChild(my_canvas);
+			//
+			var ctx = my_canvas.getContext('2d');
+			//
+			var x = Math.round(my_canvas.width*0.1);// nie zaczynamy od zera tylko od 10% szerokości canvas
+			var y = 100;
+			var h = 100;
+			var forward = true;
+			//
+			//
+			//
+			// zmienne niezbędne do easingu 
+			// całkowity czas trwania animacji, wybieram milisekundy, ale równie dobrze, mogą to być sekundy, minuty lub klatki animacji
+			var d = 1000;
+			//
+			// aktualny czas (resetowany za każdym razem jak kwadrat zmieni kierunek)
+			var t = 0;
+			//
+			// typ easingu
+			var easeType = 'easeInOutQuad'
+			//
+			// 
+			var fps = 50;
+			var lastTime = 0;			
+			animationLoop();
+			//
+			function animationLoop(time){
+				requestAnimationFrame( animationLoop );
+				if(time-lastTime>=1000/fps){
+					lastTime = time;
+					// czyszczenie całej canvas
+					ctx.clearRect(0,0,my_canvas.width, my_canvas.height);
+					// rysowanie
+					ctx.fillRect(x,y,h,h);
+					//
+					//
+					//
+					// zmieniamy przyrost x
+					// należy podać (dokładnie w tej kolejności):
+					// typ easingu (easeInQuad, easeInOutQuart, easeOutExpo itd.)
+					// wartość początkową (inną w zależności czy kwadrat przemieszcza się z lewej do prawej czy odwrotnie)
+					// wartość końcową (inną w zależności czy kwadrat przemieszcza się z lewej do prawej czy odwrotnie)
+					// aktualny moment w animacji (zazwyczaj czas, ale może być też numer klatki)
+					// całkowity czas animacji (w tych samych jednostkach co parametr „t”)
+					//
+					// opcjonalnie:
+					// o ile wartość ma przekroczyć wartość maksymalną przy Back
+
+					x = Easing.get( easeType,
+									forward ? Math.round(my_canvas.width*0.1) : Math.round(my_canvas.width*0.9-h), // skrót if, dokładnie: jeśli forward jest prawdziwe x początkowe równa się 10% szerokości canvas, jeśli forward było fałszywe x początkowe równa się 90% szerokości canvas minus szerokość kwadratu (chodzi nam o prawą krawędź kwadratu)
+									!forward ? Math.round(my_canvas.width*0.1) : Math.round(my_canvas.width*0.9-h), // dokładna odwrotność poprzedniej wartości (zwróć uwagę na „!” przed forward)
+									t, // aktualny czas
+									d // całkowity czas
+					)
+
+					//
+					// zwiększamy czas
+					t += 1000/fps
+					//
+					//
+					//
+					// Ponieważ ease Back i Elastic przekraczają maksymalną wartość zmieniamy sposób sprawdzenia czy kwadrat zakończył ruch w jedną stronę. Porównujemy aktualny czas z czasem całkowitym.
+					if(t>=d){// jeśli aktualny czas jest dłuższy niż niż czas całkowity zmień kierunek
+						//
+						forward = !forward;// Ten skrót zamieni forward na swoje przeciwieństwo. Wykrzyknik przed zmienną neguje prawdziwość zmiennej. Czyli !true to przeciwieństwo prawdy czyli fałsz. !false to przeciwieństwo fałszu czyli prawda.
+						//
+						// musimy też wyzerować czas
+						t = 0
+					}
+
+				}
+			}
+
+		</script>
+	</body>
+</html>

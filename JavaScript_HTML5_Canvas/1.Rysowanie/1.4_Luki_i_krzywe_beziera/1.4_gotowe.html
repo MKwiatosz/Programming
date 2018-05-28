@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<!-- /////////////////////////////////////////////////////////////////////////////// -->
+<!-- Dodatkowe informacje o rysowaniu kształtów w canvas tutaj: -->
+<!-- https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Canvas_tutorial/Drawing_shapes -->
+<!-- /////////////////////////////////////////////////////////////////////////////// -->
+
+<html lang="pl">
+	<head>
+		<meta charset="utf-8">
+		<title>Wspaniała wizualizacja</title>
+		<style>
+			body{
+				margin:0;
+				padding: 0;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<script>
+			// 
+			var my_canvas = document.createElement('canvas');
+			//ustawiamy szerokość i wysokość canvas
+			my_canvas.width = 500;
+			my_canvas.height = 500;
+			// dodajemy canvas do elementu „body”
+			document.body.appendChild(my_canvas);
+			// przypisujemy do zmiennej o nazwie „ctx” context 2D elementu canvas
+			var ctx = my_canvas.getContext('2d');
+			// rysujemy prostokąt 
+			ctx.fillRect(30,30,100,100);
+			// prostokąt z konturem
+			ctx.strokeRect(140,30,50,50);
+			// usuwanie prostokąta
+			ctx.clearRect(50,50,50,50);
+			//
+			//
+			// rysowanie linii
+			// rozpoczęcie rysowania ścieżki
+			ctx.beginPath();
+			// przesunięcie piórka bez rysowania niczego
+			ctx.moveTo(30,140);
+			// narysowanie linii z wcześniej ustawionego punktu do nowego punktu
+			ctx.lineTo(100,140);
+			// dalsze rysowanie
+			ctx.lineTo(100,200);
+			ctx.lineTo(60,250);
+			ctx.lineTo(10,150);
+			// wypełnienie ścieżki automatycznie lączy pierwszy z ostatnim punktem
+			ctx.fill();
+			// jeśli zamiast wypełnienia damy kontur ścieżka będzie otwarta
+			// odkomentuj poniższą linijkę i oznacz jako komentarz linijkę numer 52, żeby zobaczyć wyniek
+			// ctx.stroke();
+			//
+
+
+			// ============================================================================
+			// nowy kod ===================================================================
+			// ============================================================================
+			// rysowanie łuków
+			// funkcja arc() przyjmuje do 6 argumentów (ostatni jest opcjonalny)
+			// x i y (pozycja środka łuku), promień, początkowy kąt, końcowy kąt i kierunek (prawda jeśli łuk ma być kreślony w przeciwnym kierunku do wskazówek zegara, fałsz lub nic jeśli zgodnie ze wskazówkami zegara)
+			// UWAGA kąty muszą być podane w radianach
+			// Aby przeliczyć stopnie na radiany należy posłużyć się wzorem:
+			// 
+			// radiany = (Math.PI/180)*stopnie
+			// 
+			// Math to wbudowany w JavaScript obiekt, który ma metody i właściwości przydatne do matematycznych działań
+			// więcej tutaj: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math
+			ctx.beginPath()
+			ctx.arc(300, 150, 100, (Math.PI/180)*45, (Math.PI/180)*-120, true)
+			ctx.stroke()
+			// 
+			// 
+			// krzywe Beziera
+			ctx.beginPath()
+			ctx.moveTo(200,250)
+			// bezierCurveTo przyjmuje 6 argumentów
+			// x pierwszego punktu kontrolnego
+			// y pierwszego punktu kontrolnego
+			// x drugiego punktu kontrolnego
+			// y drugiego punktu kontrolnego
+			// x ostatniego punktu krzywej
+			// y ostatniego punktu krzywej
+			ctx.bezierCurveTo(200,100,400,400,400,250)
+			ctx.stroke()
+		</script>
+	</body>
+</html>

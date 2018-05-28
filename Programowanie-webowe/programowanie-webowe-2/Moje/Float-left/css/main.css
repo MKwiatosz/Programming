@@ -1,0 +1,60 @@
+body
+{
+	background-image: url(../img/tweed.png);
+	/* Background pattern from subtlepatterns.com */
+	margin: 0;
+}
+
+.container
+{
+	background-color: white;
+	width: 1360px;
+	height: 500px;
+	margin: auto;
+}
+
+.logo
+{
+	background-color: black;
+	width: 1360px;
+	height: 45px;
+}
+
+.menu
+{
+	background-color: limegreen;
+	width: 1360px;
+	height: 40px;
+}
+
+.nav
+{
+	background-color: coral;
+	width: 400px;
+	height: 300px;
+	float: left;
+}
+
+.content
+{
+	background-color: skyblue;
+	width: 560px;
+	height: 300px;
+	float: left;
+}
+
+.sidebar
+{
+	background-color: teal;
+	width: 400px;
+	height: 300px;
+	float: left;
+}
+
+.footer
+{
+	background-color: RebeccaPurple;
+	width: 900px;
+	height: 12px;
+	clear: both;
+}
