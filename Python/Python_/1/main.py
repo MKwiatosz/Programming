@@ -45,13 +45,6 @@ Y = ['male',
      'female'
      ]
 
-# What values you want to classify:
-
-x = input('Enter a numbers [height, weight, shoe size]: ')
-our_input = list(map(int, x.split()))
-
-print('\nYour picked dataset: ',our_input)
-
 # Different classifiers:
 
 clf_0 = KNeighborsClassifier(3)
@@ -76,16 +69,16 @@ clf_7 = clf_7.fit(X,Y)
 clf_8 = clf_8.fit(X,Y)
 clf_9 = clf_9.fit(X,Y)
 
-prediction_KNeighborsClassifier             = clf_0.predict([our_input])
-prediction_SVC_1                            = clf_1.predict([our_input])
-prediction_SVC_2                            = clf_2.predict([our_input])
-prediction_GaussianProcessClassifier        = clf_3.predict([our_input])
-prediction_DecisionTreeClassifier           = clf_4.predict([our_input])
-prediction_RandomForestClassifier           = clf_5.predict([our_input])
-prediction_MLPClassifier                    = clf_6.predict([our_input])
-prediction_AdaBoostClassifier               = clf_7.predict([our_input])
-prediction_GaussianNB                       = clf_8.predict([our_input])
-prediction_QuadraticDiscriminantAnalysis    = clf_9.predict([our_input])
+prediction_KNeighborsClassifier             = clf_0.predict(X)
+prediction_SVC_1                            = clf_1.predict(X)
+prediction_SVC_2                            = clf_2.predict(X)
+prediction_GaussianProcessClassifier        = clf_3.predict(X)
+prediction_DecisionTreeClassifier           = clf_4.predict(X)
+prediction_RandomForestClassifier           = clf_5.predict(X)
+prediction_MLPClassifier                    = clf_6.predict(X)
+prediction_AdaBoostClassifier               = clf_7.predict(X)
+prediction_GaussianNB                       = clf_8.predict(X)
+prediction_QuadraticDiscriminantAnalysis    = clf_9.predict(X)
 
 print ("\nPrediction_KNeighborsClassifier = ", prediction_KNeighborsClassifier)
 print ("Prediction_SVC_1 = ",prediction_SVC_1)
@@ -98,3 +91,32 @@ print ("Prediction_AdaBoostClassifier = ", prediction_AdaBoostClassifier)
 print ("Prediction_GaussianNB = ", prediction_GaussianNB)
 print ("Prediction_QuadraticDiscriminantAnalysis = ",prediction_QuadraticDiscriminantAnalysis)
 
+acc_tree = accuracy_score(Y, prediction_KNeighborsClassifier) * 100
+print('Accuracy for DecisionTree: {}'.format(acc_tree))
+
+acc_tree = accuracy_score(Y, prediction_SVC_1) * 100
+print('Accuracy for DecisionTree: {}'.format(acc_tree))
+
+acc_tree = accuracy_score(Y, prediction_SVC_2) * 100
+print('Accuracy for DecisionTree: {}'.format(acc_tree))
+
+acc_tree = accuracy_score(Y, prediction_DecisionTreeClassifier) * 100
+print('Accuracy for DecisionTree: {}'.format(acc_tree))
+
+acc_tree = accuracy_score(Y, prediction_GaussianProcessClassifier) * 100
+print('Accuracy for DecisionTree: {}'.format(acc_tree))
+
+acc_tree = accuracy_score(Y, prediction_RandomForestClassifier) * 100
+print('Accuracy for DecisionTree: {}'.format(acc_tree))
+
+acc_tree = accuracy_score(Y,prediction_MLPClassifier) * 100
+print('Accuracy for DecisionTree: {}'.format(acc_tree))
+
+acc_tree = accuracy_score(Y, prediction_AdaBoostClassifier) * 100
+print('Accuracy for DecisionTree: {}'.format(acc_tree))
+
+acc_tree = accuracy_score(Y, prediction_GaussianNB) * 100
+print('Accuracy for DecisionTree: {}'.format(acc_tree))
+
+acc_tree = accuracy_score(Y, prediction_QuadraticDiscriminantAnalysis) * 100
+print('Accuracy for DecisionTree: {}'.format(acc_tree))
