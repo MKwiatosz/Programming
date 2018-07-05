@@ -91,32 +91,27 @@ print ("Prediction_AdaBoostClassifier = ", prediction_AdaBoostClassifier)
 print ("Prediction_GaussianNB = ", prediction_GaussianNB)
 print ("Prediction_QuadraticDiscriminantAnalysis = ",prediction_QuadraticDiscriminantAnalysis)
 
-acc_tree = accuracy_score(Y, prediction_KNeighborsClassifier) * 100
-print('Accuracy for DecisionTree: {}'.format(acc_tree))
-
-acc_tree = accuracy_score(Y, prediction_SVC_1) * 100
-print('Accuracy for DecisionTree: {}'.format(acc_tree))
-
-acc_tree = accuracy_score(Y, prediction_SVC_2) * 100
-print('Accuracy for DecisionTree: {}'.format(acc_tree))
-
+acc_KN = accuracy_score(Y, prediction_KNeighborsClassifier) * 100
+print('\nAccuracy for KNeighbors: {}'.format(acc_KN))
+acc_SVC1 = accuracy_score(Y, prediction_SVC_1) * 100
+print('Accuracy for SVC_1: {}'.format(acc_SVC1))
+acc_SVC2 = accuracy_score(Y, prediction_SVC_2) * 100
+print('Accuracy for SVC_2: {}'.format(acc_SVC2))
 acc_tree = accuracy_score(Y, prediction_DecisionTreeClassifier) * 100
 print('Accuracy for DecisionTree: {}'.format(acc_tree))
+acc_Gaussian = accuracy_score(Y, prediction_GaussianProcessClassifier) * 100
+print('Accuracy for GaussianProcess: {}'.format(acc_Gaussian))
+acc_Forest = accuracy_score(Y, prediction_RandomForestClassifier) * 100
+print('Accuracy for RandomForest: {}'.format(acc_Forest))
+acc_MLP = accuracy_score(Y,prediction_MLPClassifier) * 100
+print('Accuracy for MLP: {}'.format(acc_MLP))
+acc_AdaBoos = accuracy_score(Y, prediction_AdaBoostClassifier) * 100
+print('Accuracy for AdaBoost: {}'.format(acc_AdaBoos))
+acc_GaussianNB = accuracy_score(Y, prediction_GaussianNB) * 100
+print('Accuracy for GaussianNB: {}'.format(acc_GaussianNB))
+acc_QuadraticDiscriminantAnalysis = accuracy_score(Y, prediction_QuadraticDiscriminantAnalysis) * 100
+print('Accuracy for QuadraticDiscriminantAnalysis: {}'.format(acc_QuadraticDiscriminantAnalysis))
 
-acc_tree = accuracy_score(Y, prediction_GaussianProcessClassifier) * 100
-print('Accuracy for DecisionTree: {}'.format(acc_tree))
-
-acc_tree = accuracy_score(Y, prediction_RandomForestClassifier) * 100
-print('Accuracy for DecisionTree: {}'.format(acc_tree))
-
-acc_tree = accuracy_score(Y,prediction_MLPClassifier) * 100
-print('Accuracy for DecisionTree: {}'.format(acc_tree))
-
-acc_tree = accuracy_score(Y, prediction_AdaBoostClassifier) * 100
-print('Accuracy for DecisionTree: {}'.format(acc_tree))
-
-acc_tree = accuracy_score(Y, prediction_GaussianNB) * 100
-print('Accuracy for DecisionTree: {}'.format(acc_tree))
-
-acc_tree = accuracy_score(Y, prediction_QuadraticDiscriminantAnalysis) * 100
-print('Accuracy for DecisionTree: {}'.format(acc_tree))
+index = np.argmax([acc_KN, acc_SVC1, acc_SVC2, acc_tree, acc_Gaussian, acc_Forest, acc_MLP, acc_AdaBoos, acc_GaussianNB, acc_QuadraticDiscriminantAnalysis])
+classifiers = {0: 'KN', 1: 'SVC_1', 2: 'SVC_2', 3: 'Tree', 4: 'Gaussian', 5: 'Forest', 6: 'MLP', 7: 'AdaBoos', 8: 'GaussianNB', 9: 'QuadraticDiscriminantAnalysi'}
+print('\nBest gender classifier is {}'.format(classifiers[index]))
