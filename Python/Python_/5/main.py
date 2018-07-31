@@ -170,7 +170,9 @@ def main(input_filename):
         output_frame = render_deepdream(tf.square(T('mixed3a')), frame)
         if writer is None:
             frame_size = (output_frame.shape[1], output_frame.shape[0])
-            writer = cv2.VideoWriter('output.avi', cv2.cv.FOURCC(*'XVID'), 30, frame_size)
+            fourcc = cv2.VideoWriter_fourcc(*'XVID')
+            writer = cv2.VideoWriter('output.avi',fourcc, 20.0, (640,480))
+            #writer = cv2.VideoWriter('output.avi', cv2.cv2.FOURCC('F','M','P','4'), 30, frame_size)
 
         writer.write(output_frame)
         i += 1
