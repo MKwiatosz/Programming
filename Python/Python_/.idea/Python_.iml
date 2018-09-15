@@ -5,7 +5,7 @@
       <excludeFolder url="file://$MODULE_DIR$/Machine_Learning_Udacity_2_7" />
       <excludeFolder url="file://$MODULE_DIR$/Python_" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 2.7 (Python_) (1)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.6 (untitled)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="TestRunnerService">
